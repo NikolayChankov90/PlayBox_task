@@ -1,0 +1,23 @@
+Simple gallery
+
+Create simple gallery (Gallery.png) which display few images (located in Photos folder). 
+When user click on some image you should open selected photo bigger (modal dialog) (SelectedPhotoView.png)
+ and on right side show EXIF data of the image (you can use https://github.com/exif-js/exif-js). 
+If photo contains GPS coordinates show Google Map with center point where the image is taken.
+
+Note:
+Put all images into Array where each photo will be in JSON object with the following structure:
+
+[
+	{
+		filename: "",
+		title: ""
+	},
+	...
+]
+
+On this stage load all images from the array and add them into the gallery.
+
+
+
+AIzaSyBMDEwu-TGLjugEIRUHlZUHQUGCvZxOo1Y
