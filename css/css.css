@@ -5,11 +5,9 @@
   border: 3px solid grey;
 }
 
-
-
-.modal {
+#myModal {
   display: none; 
-  position: absolute;
+  position: fixed;
   z-index: 1; 
   padding-top: 60px; 
   left: 0;
@@ -55,18 +53,18 @@
  
 }
 
-.close {
+#closeDlg {
   position: absolute;
   top: 25px;
   font-size: 30px;
   font-weight: bold;
   transition: 0.5s;
   align-content: center;
-  
+  color: white;
 }
-  
-.close:hover,
-.close:focus {
+
+#closeDlg:hover,
+#closeDlg:focus {
   color: rgb(238, 240, 240);
   text-decoration: none;
   cursor: pointer;
