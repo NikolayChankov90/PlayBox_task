@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,18 @@
     <link href="css/css.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <title>Gallery</title>
 </head>
 <body>
+   
     <div id="imageContainer"></div>
-    <div id="myModal" class="modal" >
+    <div id="myModal" class="modal">
         <img id="current" class="modal-content" />
         <pre id="exifResult"></pre>
         <div id="map"></div>
-        <span id="closeDlg" class="close" onclick="spanClick()" >Close</span>
+        <span id="closeDlg" class="close" onclick="spanClick()">Close</span>
+        <img src="/photos/"
     </div>
 
     <script src="js/functions.js"></script>
@@ -25,5 +26,6 @@
     <script src="js/exif.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMDEwu-TGLjugEIRUHlZUHQUGCvZxOo1Y&libraries=places&callback=initMap"></script>
     <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+    <script type="text/javascript" src="json/photos.json"></script>
 </body>
 </html>

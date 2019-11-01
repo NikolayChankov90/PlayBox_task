@@ -81,3 +81,8 @@ Example:
     Date taken:     //EXIF tag DateTime
     Tags:           //here display image tags separated by comma, example: house, dog, clouds
 - On Right /bottom/ show Google map if GPS coordinates available (as is now)
+
+
+How to get photos from local path and from JSON file with AJAX request . After that append it to html tag. 
+
+ 

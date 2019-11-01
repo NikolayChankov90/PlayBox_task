@@ -1,0 +1,280 @@
+﻿[
+  {
+    "location": "Photos/_DSC0150.jpg",
+    "title": "title 001",
+    "id": "image_id_001",
+    "tags": [ "building", "city", "hotel"]
+  },
+  {
+    "location": "Photos/_DSC0226.jpg",
+    "title": "title 002",
+    "id": "image_id_002",
+    "tags": [ "fruit", "palm"]
+  },
+  {
+    "location": "Photos/_DSC0442.jpg",
+    "title": "title 003",
+    "id": "image_id_003",
+    "tags": [ "building", "catedral", "history"]
+  },
+  {
+    "location": "Photos/_DSC6927-Е.jpg",
+    "title": "title 004",
+    "id": "image_id_004",
+    "tags": [ "moon", "cosmos"]
+  },
+  {
+    "location": "Photos/_DSC7679.jpg",
+    "title": "title 005",
+    "id": "image_id_005",
+    "tags": [ "lake" , "sunset" , "nature"]
+  },
+  {
+    "location": "Photos/100_6118.jpg",
+    "title": "title 006",
+    "id": "image_id_006",
+    "tags": [ "bus" , "red" , "people"]
+  },
+  {
+    "location": "Photos/100_6149.jpg",
+    "title": "title 007",
+    "id": "image_id_007",
+    "tags": [ "building" , "catedral" , "history"]
+  },
+  {
+    "location": "Photos/103_0695_Pano.jpg",
+    "title": "title 008",
+    "id": "image_id_008",
+    "tags": [ "lake" , "sunset" , "nature"]
+  },
+  {
+    "location": "Photos/20130610_171751.jpg",
+    "title": "title 009",
+    "id": "image_id_009",
+    "tags": [ "carting" , "driver" , "track"]
+  },
+  {
+    "location": "Photos/20130610_173740.jpg",
+    "title": "title 010",
+    "id": "image_id_010",
+    "tags": [ "track" , "final" , "carting"]
+  },
+  {
+    "location": "Photos/20140303_103122.jpg",
+    "title": "title 011",
+    "id": "image_id_011",
+    "tags": [ "cat" , "animal"]
+  },
+  {
+    "location": "Photos/20150911_150358.jpg",
+    "title": "title 012",
+    "id": "image_id_012",
+    "tags": [ "car" , "red"]
+  },
+  {
+    "location": "Photos/20150911_173710.jpg",
+    "title": "title 013",
+    "id": "image_id_013",
+    "tags": []
+  },
+  {
+    "location": "Photos/20180505_141706.jpg",
+    "title": "title 014",
+    "id": "image_id_014",
+    "tags": [ "church", "catedral"]
+  },
+  {
+    "location": "Photos/20180608_203614.jpg",
+    "title": "title 015",
+    "id": "image_id_015",
+    "tags": [ "sunset" , "lake"]
+  },
+  {
+    "location": "Photos/20180707_172157.jpg",
+    "title": "title 016",
+    "id": "image_id_016",
+    "tags": [ "sea", "sun"]
+  },
+  {
+    "location": "Photos/20180709_194424.jpg",
+    "title": "title 017",
+    "id": "image_id_017",
+    "tags": [ "dog", "animal"]
+  },
+  {
+    "location": "Photos/20180712_120405.jpg",
+    "title": "title 018",
+    "id": "image_id_018",
+    "tags": [ "sea" ]
+  },
+  {
+    "location": "Photos/20181208_142249.jpg",
+    "title": "title 019",
+    "id": "image_id_019",
+    "tags": [ "horse" , "animal"]
+  },
+  {
+    "location": "Photos/20181231_132106.jpg",
+    "title": "title 020",
+    "id": "image_id_020",
+    "tags": [ "nature" , "waterfall"]
+  },
+  {
+    "location": "Photos/20190106_170221.jpg",
+    "title": "title 021",
+    "id": "image_id_021",
+    "tags": [ "sunset" ,"village"]
+  },
+  {
+    "location": "Photos/20190209_113258.jpg",
+    "title": "title 022",
+    "id": "image_id_022",
+    "tags": []
+  },
+  {
+    "location": "Photos/20190223_082505.jpg",
+    "title": "title 023",
+    "id": "image_id_023",
+    "tags": [ "road" , "winter"]
+  },
+  {
+    "location": "Photos/20190306_134827.jpg",
+    "title": "title 024",
+    "id": "image_id_024",
+    "tags": [ "sky" , "clouds"]
+  },
+  {
+    "location": "Photos/DJI_0292-Pano.jpg",
+    "title": "title 025",
+    "id": "image_id_025",
+    "tags": [ "nature" , "sunset"]
+  },
+  {
+    "location": "Photos/DJI_0306-HDR.jpg",
+    "title": "title 026",
+    "id": "image_id_026",
+    "tags": [ "river" , "sunset"]
+  },
+  {
+    "location": "Photos/DJI_0608.jpg",
+    "title": "title 027",
+    "id": "image_id_027",
+    "tags": [ "nature", "tree" , "building"]
+  },
+  {
+    "location": "Photos/DJI_0668-4.jpg",
+    "title": "title 028",
+    "id": "image_id_028",
+    "tags": [ "winter", "nature"]
+  },
+  {
+    "location": "Photos/DJI_0779.jpg",
+    "title": "title 029",
+    "id": "image_id_029",
+    "tags": [ "nature" , "vane" , "autumn", "field"]
+  },
+  {
+    "location": "Photos/DJI_0808.jpg",
+    "title": "title 030",
+    "id": "image_id_030",
+    "tags": [ "road" , "autumn"]
+  },
+  {
+    "location": "Photos/DJI_0907.jpg",
+    "title": "title 031",
+    "id": "image_id_031",
+    "tags": [ "nature" , "field", "hotel" ]
+  },
+  {
+    "location": "Photos/DSC_0609.jpg",
+    "title": "title 032",
+    "id": "image_id_032",
+    "tags": ["airplane" , "sky"]
+  },
+  {
+    "location": "Photos/DSC_1603.jpg",
+    "title": "title 033",
+    "id": "image_id_033",
+    "tags": [ "animal" , "sheep"]
+  },
+  {
+    "location": "Photos/DSCF0360.jpg",
+    "title": "title 034",
+    "id": "image_id_034",
+    "tags": [ "animal" , "duck" , "river"]
+  },
+  {
+    "location": "Photos/DSCF0649.jpg",
+    "title": "title 035",
+    "id": "image_id_035",
+    "tags": [ "airplane" , "sky", "view" ]
+  },
+  {
+    "location": "Photos/IMAG0096.jpg",
+    "title": "title 036",
+    "id": "image_id_036",
+    "tags": [ "horse" , "animal"]
+  },
+  {
+    "location": "Photos/IMAG0219.jpg",
+    "title": "title 037",
+    "id": "image_id_037",
+    "tags": [ "car" , "white" , "winter"]
+  },
+  {
+    "location": "Photos/IMAG1516.jpg",
+    "title": "title 038",
+    "id": "image_id_038",
+    "tags": [ "airplane" , "animal" , "pork"]
+  },
+  {
+    "location": "Photos/IMAG1669.jpg",
+    "title": "title 039",
+    "id": "image_id_039",
+    "tags": [ "nature" , "tree"]
+  },
+  {
+    "location": "Photos/IMG_1745.jpg",
+    "title": "title 040",
+    "id": "image_id_040",
+    "tags": ["statue"]
+  },
+  {
+    "location": "Photos/IMG_1752.jpg",
+    "title": "title 041",
+    "id": "image_id_041",
+    "tags": ["village"]
+  },
+  {
+    "location": "Photos/P1000643.jpg",
+    "title": "title 042",
+    "id": "image_id_042",
+    "tags": [ "building" , "city"]
+  },
+  {
+    "location": "Photos/P1000650.jpg",
+    "title": "title 043",
+    "id": "image_id_043",
+    "tags": [ "car" , "mercedes"]
+  },
+  {
+    "location": "Photos/P1010279.jpg",
+    "title": "title 044",
+    "id": "image_id_044",
+    "tags": [ "nature" , "flowers" , "tulip"]
+
+  },
+  {
+    "location": "Photos/P1020113.jpg",
+    "title": "title 045",
+    "id": "image_id_045",
+    "tags": [ "cat" , "animal"]
+  },
+  {
+    "location": "Photos/PANO0001-Pano-7.jpg",
+    "title": "title 046",
+    "id": "image_id_046",
+    "tags": ["river" , "sunset"]
+  }
+
+]

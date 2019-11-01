@@ -1,8 +1,16 @@
-function renderImages (arrayImg){
-    arrayImg.forEach(function (item){
-        imageContainer.append(`<img id=${item.title} src=photos/${item.filename}.jpg>`)
+function renderImages(data) {
+    data.forEach(function (item) {
+        imageContainer.append(`<img id=${item.id} src=${item.location}.jpg><p>${item.title}</p>`);
     })
 }
+
+$.getJSON("/json/photos.json", function (data) {
+    renderImages(data);
+});
+
+///Page load Function
+
+
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData -->
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
