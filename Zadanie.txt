@@ -21,3 +21,63 @@ On this stage load all images from the array and add them into the gallery.
 
 
 AIzaSyBMDEwu-TGLjugEIRUHlZUHQUGCvZxOo1Y
+
+
+New features /2019.11.01/:
+1.Load images from external source
+- Convert "arrayImg" Array from "scripts.js" into external json file "photos.json"
+- Data structure should look like
+[
+    {
+        location: "",
+        title: "",
+        id: "",
+        tags: []
+    },
+    ...
+]
+Example:
+[
+    {
+        location: "Photos/103_0695_Pano.jpg",
+        title: "Title 001",
+        id: "image_id_001",
+        tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+        location: "Photos/DJI_0907.jpg",
+        title: "Title 002",
+        id: "image_id_002",
+        tags: ["tag9", "tag32", "tag17", "tag2"]
+    },
+    ...
+]
+- On page loading show loading message in the middle of the screen with text "Loading please wait..."
+- Make ajax request to get photos from created json file and create Gallery view
+- Remove loading message
+- Keep image aspect ratio (!)
+- Below each photo place Photo Title
+
+2.Gallery paging - When you have many images it is not good idea to display them all in one view that`s why you have to implement paging
+- Display max 12 images on one page
+- Below the gallery you should implement paging links - click on page 2 should display 12 images starting from image 13, etc.
+
+3.Gallery Filter/Search
+- Above gallery create input field where User should write Title to search by
+- Add button with text Search
+- When user click on the button you should filter all images which match exactly or contain the text partially
+- Display them in the gallery and keep in mind paging (!)
+- When user clear search field and click Search you should display all images again without filtering
+
+4.Photo modal dialog
+- On Left display selected photo (as is now) but keep aspect ratio (!)
+- On Right /top/ you should display data as follow (show them in scrollable <div> instead <pre>):
+    Camera maker:   //EXIF tag Make
+    Camera model:   //EXIF tag Model
+    ISO:            //EXIF tag ISOSpeedRatings
+    Exposure Time:  //EXIF tag ExposureTime - get the value from the brackets, example 0.008333333333333333 [1/120], display 1/120 sec
+    F-stop:         //EXIF tag FNumber - f/<value>, get the value before brackets, example 2.8 [28/10], display f/2.8
+    Focal Length:   //EXIF tag FocalLength - <value> mm, get the value before brackets, example 4.5 [45/10], display 4.5 mm
+    Date taken:     //EXIF tag DateTime
+    Tags:           //here display image tags separated by comma, example: house, dog, clouds
+- On Right /bottom/ show Google map if GPS coordinates available (as is now)
