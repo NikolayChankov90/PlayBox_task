@@ -1,13 +1,13 @@
-const imageContainer = $("#imageContainer"),
-    modal = $('#myModal'),
+const modal = $('#myModal'),
     closeDlg = $("#closeDlg"),
     result = $('#exifResult'),
     googleMap = $('#map'),
-    modalContent = $('.modal-content'),
+    modalContent = $('.modal-content');
 
 
-const image = $("#imageContainer img");
 
+const image = $("#imgBox img");
+console.log(image);
 image.click(function() {
     let latFinal, lonFinal;
 

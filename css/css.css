@@ -1,8 +1,22 @@
 #imageContainer img {
-  width: 30%;
-  height: 350px;
-  padding: 10px;
-  border: 3px solid grey;
+  display: flex;
+  width: 100%;
+  height: 400px;
+  box-sizing: border-box;
+  align-content: space-between;
+}
+
+#imageContainer p{
+  color: black;
+  font-size: 20px;
+  z-index: 102;
+  text-align: center;
+}
+
+#imgBox{
+  float: left;
+  width: 33.33%;
+  padding: 5px;
 }
 
 #myModal {
@@ -70,21 +84,37 @@
   cursor: pointer;
 }
 
+
 #loading {
+    display:block;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     position: fixed;
     z-index: 100;
-    display: block;
     opacity: 0.7;
     background-color: lightblue;
 }
 
 #loading p {
-    position: absolute;
-    top: 100px;
-    left: 240px;
-    z-index:101;
+    position: relative;
+    font-size: 40px;
+    color: darkblue;
+    top: 50%;
+    text-align: center;
+    z-index:105;
+    background-color: transparent lightblue;
+}
+
+.hide{
+ display:none;
+}
+
+.navPage a {
+ padding:5px;
+}
+.navPage a.current {
+  font-weight:bold;
+  text-decoration:underline;
 }

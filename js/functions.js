@@ -1,16 +1,32 @@
+const loading = $('#loading')
+const limit = 12;
+const totalCount = 0;
+const totalPages = 0;
+
+let imageContainer = $('#imageContainer');
 function renderImages(data) {
     data.forEach(function (item) {
-        imageContainer.append(`<img id=${item.id} src=${item.location}.jpg><p>${item.title}</p>`);
-    })
-}
+        imageContainer.append(`<div id='imgBox'><img id=${item.id} src=${item.location}><p>${item.title}</p></div>`);
+   })
+   loadingMsgHide();
+};
 
 $.getJSON("/json/photos.json", function (data) {
+    /*totalCount = data.length;
+    if (totalPages > 12) {
+        totalPages = Math.round(totalPages / 12);
+        // TODO apend pages */
+    
     renderImages(data);
 });
 
 ///Page load Function
-
-
+function loadingMsg(){
+    loading.show()
+};
+function loadingMsgHide() {
+    loading.hide()
+ };
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData -->
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
@@ -53,4 +69,14 @@ function getLatLonData(exifdata){
         lon = getGPSFormatedData(exifdata.GPSLongitude, exifdata.GPSLongitudeRef);
     }
     return [lat, lon];
+}
+
+function findImage(){
+    let input = $('#inputValue');
+    let container = $('#imgBox');
+    let pText = $("#imgBox p");
+    for (var i = 0 ; i < pText.length ; i++) {
+       let index = pText[0];
+       let txtValue = pText.textContent()|| pText.innerText();
+    }
 }
