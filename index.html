@@ -11,18 +11,18 @@
     <title>Gallery</title>
 </head>
 <body>
-    <button id="search" onclick="findImage()" type="button">
-        <input type="text" id="inputValue" placeholder="Type to search"></input>SEARCH
-    </button>
+    <div class="searchButton">
+        <input type="text" id="inputValue" placeholder="Type to search"></input>
+        <button onclick="sortImages()" type="button">SEARCH</button>
+    </div>
     <div id="loading"><p>Loading Please Wait.....</p></div>
     <div id="imageContainer"></div>
     <div id="myModal" class="modal">
         <img id="current" class="modal-content" />
-        <pre id="exifResult"></pre>
+        <div id="exifResult"></div>
         <div id="map"></div>
         <span id="closeDlg" class="close" onclick="spanClick()">Close</span>
     </div>
-    <div class="navPage"></div>
 
     <script src="js/functions.js"></script>
     <script src="js/scripts.js"></script>

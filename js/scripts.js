@@ -4,13 +4,8 @@ const modal = $('#myModal'),
     googleMap = $('#map'),
     modalContent = $('.modal-content');
 
-
-
-const image = $("#imgBox img");
-console.log(image);
-image.click(function() {
-    let latFinal, lonFinal;
-
+let image = $('.imgBox img')
+image.click(function() {   
     modalContent.attr('src', $(this).attr('src'));
     modal.css('display', 'block');
     googleMap.css('display','none');

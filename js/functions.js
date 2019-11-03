@@ -1,32 +1,41 @@
 const loading = $('#loading')
 const limit = 12;
-const totalCount = 0;
+const totalCountImages = 0;
 const totalPages = 0;
 
 let imageContainer = $('#imageContainer');
 function renderImages(data) {
-    data.forEach(function (item) {
-        imageContainer.append(`<div id='imgBox'><img id=${item.id} src=${item.location}><p>${item.title}</p></div>`);
-   })
+    do {loadingMsg()}
+    while (data.forEach(function (item) {
+        imageContainer.append(`<div class='imgBox'><img class="jsonImage" id=${item.id} src=${item.location}><p>${item.title}</p></div>`);
+   }));
    loadingMsgHide();
 };
-
 $.getJSON("/json/photos.json", function (data) {
-    /*totalCount = data.length;
-    if (totalPages > 12) {
-        totalPages = Math.round(totalPages / 12);
-        // TODO apend pages */
-    
     renderImages(data);
+    /*
+   
+    totalCountImages = data.length;
+
+
+    if (totalCountImages > 12) {
+        totalPages = Math.ceil(totalPages / 12);
+        renderImages(data);
+        
+    }
+
+        // TODO apend pages
+        */
 });
 
 ///Page load Function
 function loadingMsg(){
     loading.show()
 };
+
 function loadingMsgHide() {
     loading.hide()
- };
+ };  
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData -->
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
@@ -57,7 +66,6 @@ function getGPSFormatedData(pos, ref){
         ref
     );
 }
-
 function getLatLonData(exifdata){
     let lat = null,
         lon = null;
@@ -71,12 +79,18 @@ function getLatLonData(exifdata){
     return [lat, lon];
 }
 
-function findImage(){
-    let input = $('#inputValue');
-    let container = $('#imgBox');
-    let pText = $("#imgBox p");
-    for (var i = 0 ; i < pText.length ; i++) {
-       let index = pText[0];
-       let txtValue = pText.textContent()|| pText.innerText();
-    }
-}
+
+//Sort Images by name function 
+function sortImages(){
+    loadingMsg();
+    let filter=$("#inputValue").val().toLowerCase();
+    $(".imgBox").hide();
+    $('.imgBox ').each(function(){
+        if($(this).text().toLowerCase().indexOf(filter) != -1) {
+            $(this).show();
+
+            loadingMsgHide();
+        } 
+    });
+
+};
