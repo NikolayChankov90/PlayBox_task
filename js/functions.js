@@ -1,5 +1,9 @@
+
 function getPhotos() {
-    $.getJSON("./json/photos.json", renderImages);
+    $.getJSON("./json/photos.json", function(data){
+        arrayPhotos=data;
+        renderImages(data);
+    })
 }
 function loadingMsg(doShow, message){
     if(doShow){
@@ -92,10 +96,57 @@ function filterImages(){
     loadingMsg(true);
     let filter=$("#inputValue").val().toLowerCase();
     $(".imgBox").hide();
-    $('.imgBox ').each(function(){
-        if($(this).text().toLowerCase().indexOf(filter) != -1) {
+    $('.imgBox').each(function(){
+        if($(this).text().toLowerCase().indexOf(filter) !== -1) {
             $(this).show();
         } 
     });
     loadingMsg();
 };
+
+////////////////////////////////////////////// Pagination /////////////////////////////////////
+
+let start ;
+    pageNum =0;
+    limit = 12 ,
+    photos = [],
+    arrayPhotos= [];
+
+
+
+function goToPage(pageNum){
+
+    start = pageNum + (limit - pageNum);
+    createFilteredArray();
+}
+
+
+
+function createFilteredArray(){
+
+filtering();
+sorting();
+paging(); 
+renderImages(filteredArrayPhotos); 
+
+
+function filtering() {
+    let filteredArrayPhotos = arrayPhotos.filter(function (item) {
+        if( $("#inputValue").val().toLowerCase() === item ) {
+        $('.imgBox ').show();
+    } else($('.imgBox ').hide())
+ })
+}
+
+
+function sorting () {
+    
+}
+
+function paging () { 
+    filteredArrayPhotos.forEach(function(photo, index){
+        if(index >= (pageNum*limit) || index < (pageNum*limit+limit)){
+            photos.push(photo);
+     }
+ })}
+}
