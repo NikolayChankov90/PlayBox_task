@@ -87,9 +87,7 @@ function filterImages(){
     $('.imgBox ').each(function(){
         if($(this).text().toLowerCase().indexOf(filter) != -1) {
             $(this).show();
-
-            loadingMsgHide();
         } 
     });
-
+    loadingMsgHide();
 };
