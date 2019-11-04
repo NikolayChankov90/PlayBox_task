@@ -2,27 +2,12 @@ const modal = $('#myModal'),
     closeDlg = $("#closeDlg"),
     result = $('#exifResult'),
     googleMap = $('#map'),
-    modalContent = $('.modal-content');
+    modalContent = $('.modal-content'),
+    loading = $('#loading');
 
-let image = $('.imgBox img')
-image.click(function() {   
-    modalContent.attr('src', $(this).attr('src'));
-    modal.css('display', 'block');
-    googleMap.css('display','none');
+let imageContainer = $('#imageContainer');
 
-    EXIF.getData(this, function() {
-        let latLonData;
-
-        result.text(EXIF.pretty(this));
-
-        latLonData = getLatLonData(this.exifdata);
-
-        if (latLonData[0] && latLonData[1]) {
-            googleMap.css('display','block');
-            initMap(latLonData[0], latLonData[1]);
-        }
-    })
-});
+getPhotos();
 
 closeDlg.click(function() {
     modal.css('display',"none");

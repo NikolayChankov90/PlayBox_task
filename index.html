@@ -14,13 +14,13 @@
         <input type="text" id="inputValue" placeholder="Type to search"></input>
         <button onclick="filterImages()" type="button">SEARCH</button>
     </div>
-    <div id="loading"><p>Loading Please Wait.....</p></div>
+    <div id="loading"></div>
     <div id="imageContainer"></div>
     <div id="myModal" class="modal">
         <img id="current" class="modal-content" />
-        <pre id="exifResult"><pre>
+        <pre id="exifResult"></pre>
         <div id="map"></div>
-        <span id="closeDlg" class="close" onclick="spanClick()">Close</span>
+        <span id="closeDlg" class="close">Close</span>
     </div>
 
     <script src="js/functions.js"></script>
@@ -28,6 +28,5 @@
     <script src="js/exif.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMDEwu-TGLjugEIRUHlZUHQUGCvZxOo1Y&libraries=places&callback=initMap"></script>
     <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
-    <script type="text/javascript" src="json/photos.json"></script>  
 </body>
 </html>

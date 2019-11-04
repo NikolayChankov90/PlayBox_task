@@ -1,40 +1,48 @@
-const loading = $('#loading')
-
-let imageContainer = $('#imageContainer');
-function renderImages(data) {
-    do {loadingMsg()}
-    while (data.forEach(function (item) {
-        imageContainer.append(`<div class='imgBox'><img class="jsonImage" id=${item.id} src=${item.location}><p>${item.title}</p></div>`);
-   }));
-   loadingMsgHide();
-};
-$.getJSON("/json/photos.json", function (data) {
-    renderImages(data);
-    
-    /*const limit = 12;
-      const totalCountImages = 0;
-      const totalPages = 0;
-      totalCountImages = data.length;
-
-    if (totalCountImages > 12 ) {
-        totalPages = Math.ceil(totalPages / 12);
-
-        renderImages(data);
-
+function getPhotos() {
+    $.getJSON("./json/photos.json", renderImages);
+}
+function loadingMsg(doShow, message){
+    if(doShow){
+        if(!message){
+            message = 'Loading Please Wait.....';
+        }
+        loading.html(`<p>${message}</p>`)
+        loading.show();
+        return;
     }
+    loading.hide();
+}
 
-    */
+function addPhotosClickListener(){
+    let images = $('.imgBox img');
+    images.click(function() {
+        modalContent.attr('src', $(this).attr('src'));
+        modal.css('display', 'block');
+        googleMap.css('display','none');
 
-});
+        EXIF.getData(this, function() {
+            let latLonData;
 
-///Page load Function
-function loadingMsg(){
-    loading.show()
-};
+            result.text(EXIF.pretty(this));
 
-function loadingMsgHide() {
-    loading.hide()
- };  
+            latLonData = getLatLonData(this.exifdata);
+
+            if (latLonData[0] && latLonData[1]) {
+                googleMap.css('display','block');
+                initMap(latLonData[0], latLonData[1]);
+            }
+        });
+    });
+}
+
+function renderImages(data) {
+    loadingMsg(true);
+    data.forEach(function (item) {
+        imageContainer.append(`<div class='imgBox'><img id=${item.id} src=${item.location} /><p>${item.title}</p></div>`);
+    });
+    addPhotosClickListener();
+    loadingMsg();
+}
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData -->
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
@@ -81,7 +89,7 @@ function getLatLonData(exifdata){
 
 //Sort Images by name function 
 function filterImages(){
-    loadingMsg();
+    loadingMsg(true);
     let filter=$("#inputValue").val().toLowerCase();
     $(".imgBox").hide();
     $('.imgBox ').each(function(){
@@ -89,5 +97,5 @@ function filterImages(){
             $(this).show();
         } 
     });
-    loadingMsgHide();
+    loadingMsg();
 };
