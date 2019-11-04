@@ -1,0 +1,66 @@
+
+getPhotos -> all photos from json -> arrayPhotos = [] -> createFilteredArray()
+
+page 1 -> start 0
+page 2 -> start 12
+page 3 -> start 24
+
+	let start, //0
+	    limit, //12
+	    photos = [];
+
+goToPage(pageNum){
+
+   start = pageNum+(limit-pageNum);
+   createFilteredArray()
+
+}
+		
+createFilteredArray(){
+	
+        filtering();
+	sorting()
+	preparePaging()
+	renderImages(filteredArrayPhotos)
+
+
+
+	 #1 - filtering
+	   let filteredArrayPhotos = arrayPhotos.filter(function(){
+                dali ima ne6to v search poleto
+	     return 
+	    })
+
+
+
+	2#sort()
+
+
+        #3 - paging(){
+	filteredArrayPhotos.forEach(function(photo, index){
+		//1 0-12
+		//2 12-[13]->
+		//3 24-[14]->
+		if(index >= (pageNum*limit) || index < (pageNum*limit+limit)){
+			photos.push(photo);
+		}
+	});
+
+
+
+	
+}
+
+limit 12
+
+page 0
+	start = page*limit -> 0
+
+page 1
+	start = page*limit -> 12
+
+page 2
+	start = page*limit -> 24
+
+page 3
+	start = page*limit -> 36
