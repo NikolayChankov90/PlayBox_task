@@ -1,7 +1,4 @@
 const loading = $('#loading')
-const limit = 12;
-const totalCountImages = 0;
-const totalPages = 0;
 
 let imageContainer = $('#imageContainer');
 function renderImages(data) {
@@ -13,19 +10,21 @@ function renderImages(data) {
 };
 $.getJSON("/json/photos.json", function (data) {
     renderImages(data);
-    /*
-   
-    totalCountImages = data.length;
+    
+    /*const limit = 12;
+      const totalCountImages = 0;
+      const totalPages = 0;
+      totalCountImages = data.length;
 
-
-    if (totalCountImages > 12) {
+    if (totalCountImages > 12 ) {
         totalPages = Math.ceil(totalPages / 12);
+
         renderImages(data);
-        
+
     }
 
-        // TODO apend pages
-        */
+    */
+
 });
 
 ///Page load Function
@@ -81,7 +80,7 @@ function getLatLonData(exifdata){
 
 
 //Sort Images by name function 
-function sortImages(){
+function filterImages(){
     loadingMsg();
     let filter=$("#inputValue").val().toLowerCase();
     $(".imgBox").hide();

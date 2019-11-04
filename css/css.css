@@ -1,16 +1,13 @@
 #imageContainer {
   display: flex;
   flex-wrap: wrap;
+  column-count: auto auto auto;
 }
 #imageContainer img {
-  width: 100%;
+  width: 90%;
   height: 400px;
   box-sizing: border-box;
-  object-fit: cover;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  object-fit: inherit;
 }
 
 #imageContainer p{
@@ -22,7 +19,7 @@
 .imgBox{
   float: left;
   width: 33.33%;
-  padding: 5px;
+  object-fit: cotain;
 }
 
 #myModal {
