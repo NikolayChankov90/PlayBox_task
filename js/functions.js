@@ -1,7 +1,7 @@
 
 function getPhotos() {
     $.getJSON("./json/photos.json", function(data){
-        arrayPhotos=data;
+        arrayPhotos = data;
         renderImages(data);
     })
 }
@@ -106,47 +106,44 @@ function filterImages(){
 
 ////////////////////////////////////////////// Pagination /////////////////////////////////////
 
-let start ;
-    pageNum =0;
+let start;
     limit = 12 ,
     photos = [],
     arrayPhotos= [];
 
 
-
 function goToPage(pageNum){
-
     start = pageNum + (limit - pageNum);
     createFilteredArray();
 }
 
-
-
 function createFilteredArray(){
 
-filtering();
-sorting();
-paging(); 
-renderImages(filteredArrayPhotos); 
+    filtering();
+    sorting();
+    paging(); 
+    renderImages(filteredArrayPhotos); 
 
 
-function filtering() {
-    let filteredArrayPhotos = arrayPhotos.filter(function (item) {
-        if( $("#inputValue").val().toLowerCase() === item ) {
-        $('.imgBox ').show();
-    } else($('.imgBox ').hide())
- })
+    function filtering() {
+         filteredArrayPhotos = arrayPhotos.slice(start,end) {
+            start = (pageNum-1)*limit,
+            end = (pageNum*limit)
+        }
+    }
+
+
+    function sorting () {
+
+    }
+
+    function paging () { 
+        filteredArrayPhotos.forEach(function(photo, index){
+            if(index >= (pageNum*limit) || index < (pageNum*limit+limit)){
+                photos.push(photo);
+        }
+    })}
 }
 
 
-function sorting () {
-    
-}
 
-function paging () { 
-    filteredArrayPhotos.forEach(function(photo, index){
-        if(index >= (pageNum*limit) || index < (pageNum*limit+limit)){
-            photos.push(photo);
-     }
- })}
-}

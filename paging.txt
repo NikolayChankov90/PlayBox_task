@@ -5,8 +5,8 @@ page 1 -> start 0
 page 2 -> start 12
 page 3 -> start 24
 
-	let start, //0
-	    limit, //12
+	let start,
+	    limit = 12;
 	    photos = [];
 
 goToPage(pageNum){
@@ -26,14 +26,18 @@ createFilteredArray(){
 
 
 	 #1 - filtering
-	   let filteredArrayPhotos = arrayPhotos.filter(function(){
-                dali ima ne6to v search poleto
+	   let filteredArrayPhotos = arrayPhotos.filter(function(){	
+
+	proverqvame dali ima neshto w search poleto 
+               
 	     return 
 	    })
 
 
 
-	2#sort()
+	2#sort(){
+
+	}
 
 
         #3 - paging(){
@@ -52,6 +56,7 @@ createFilteredArray(){
 }
 
 limit 12
+start = page*limit -> 0
 
 page 0
 	start = page*limit -> 0
