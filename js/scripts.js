@@ -6,6 +6,7 @@ const modal = $('#myModal'),
     loading = $('#loading');
 
 let imageContainer = $('#imageContainer');
+    filter = $("#inputValue").val().toLowerCase();
 
 getPhotos();
 
