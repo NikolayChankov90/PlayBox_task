@@ -15,7 +15,7 @@
     "location": "Photos/_DSC0442.jpg",
     "title": "Title003",
     "id": "image_id_003",
-    "tags": [ "building", "catedral", "history"]
+    "tags": [ "building" , "catedral" , "history"]
   },
   {
     "location": "Photos/_DSC6927-Е.jpg",
@@ -43,7 +43,7 @@
   },
   {
     "location": "Photos/103_0695_Pano.jpg",
-    "title": "title008",
+    "title": "Title008",
     "id": "image_id_008",
     "tags": [ "lake" , "sunset" , "nature"]
   },
@@ -61,7 +61,7 @@
   },
   {
     "location": "Photos/20140303_103122.jpg",
-    "title": "Cat",
+    "title": "Title011",
     "id": "image_id_011",
     "tags": [ "cat" , "animal"]
   },

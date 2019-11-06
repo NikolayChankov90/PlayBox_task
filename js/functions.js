@@ -17,7 +17,7 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 
-
+// Modal Dialog
 function addPhotosClickListener(){
     let images = $(".imgBox img");
     images.click(function() {
@@ -29,32 +29,22 @@ function addPhotosClickListener(){
         currentImageTag = $(this).attr("alt");
          
         EXIF.getData(this, function() {
-            let latLonData;
-
-            cameraMaker =("Camera maker: " + EXIF.getTag(this, "Make"));
-            cameraModel = "Camera model: " +  EXIF.getTag(this, "Model");
-            speedRatings = "ISO: " + EXIF.getTag(this, "ISOSpeedRatings");
-            exposureTime = "Exposure time: " + EXIF.getTag(this, "ExposureTime");
-            fNumber = "F-Stop:" + "f/" +EXIF.getTag(this, "FNumber ");
-            focalLength ="Focal Length: " + EXIF.getTag(this, "FocalLength"); +"mm"; 
-            dateTaken = "Date taken: " +EXIF.getTag(this, "DateTime")
-            
-          latestTags = {
-             maker :         EXIF.getTag(this, "Make"),
-             model :         EXIF.getTag(this, "Model"),
-             speedRatings :  EXIF.getTag(this, "ISOSpeedRatings"),
-             exposureTime :  EXIF.getTag(this, "ExposureTime"),
-             fNumber :       EXIF.getTag(this, "FNumber "),
-             focalLength :   EXIF.getTag(this, "FocalLength"),
-             dateTaken :     EXIF.getTag(this, "DateTime") ,
-             extract : function() {
-                 return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                  "Exposure time: " + this.exposureTime + "\n" + "F-Stop: f/ " + this.fNumber +  "\n" + "Focal Length: " + this.focalLength + " mm" + "\n"+
-                  "Date taken: " + this.dateTaken + "\n" + "Tags: "+ currentImageTag )
-             }
-
+            let latLonData,
+                latestTags = {
+                maker: EXIF.getTag(this, "Make"),
+                model: EXIF.getTag(this, "Model"),
+                speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
+                exposureTime: EXIF.getTag(this, "ExposureTime"),
+                fNumber: EXIF.getTag(this, "FNumber"),
+                focalLength: EXIF.getTag(this, "FocalLength"),
+                dateTaken: EXIF.getTag(this, "DateTime"),
+                extract: function () {
+                    return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                        "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                        "Date taken: " + this.dateTaken + "\n" + "Tags: " + currentImageTag);
+                }
             };
-    
+
             result.text(latestTags.extract());
 
             latLonData = getLatLonData(this.exifdata);
@@ -62,13 +52,11 @@ function addPhotosClickListener(){
             if (latLonData[0] && latLonData[1]) {
                 googleMap.css('display','block');
                 initMap(latLonData[0], latLonData[1]);
-            };
+            }
         })
     });
 
 }
-
-
 
 function renderImages(data) {
     loadingMsg(true);
@@ -80,9 +68,10 @@ function renderImages(data) {
 }
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData -->
+
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     var dd = degrees + (minutes/60) + (seconds/3600);
-    if (direction == "S" || direction == "W") {
+    if (direction === "S" || direction === "W") {
         dd = dd * -1; 
     }
     return dd;
@@ -107,9 +96,11 @@ function getGPSFormatedData(pos, ref){
         ref
     );
 }
+
 function getLatLonData(exifdata){
     let lat = null,
         lon = null;
+        focalLength = null;
 
     if (exifdata.GPSLatitude && exifdata.GPSLatitude.length > 0) {
         lat = getGPSFormatedData(exifdata.GPSLatitude, exifdata.GPSLatitudeRef);
@@ -142,44 +133,55 @@ let start,
     photos = [],
     arrayPhotos= [];
 
-let pageNum = function() {
-
+let  pageNum = function() {
+   return  Math.ceil(arrayPhotos.length / limit);
 };
-    
-const goToPage = pageNum => {
+
+function goToPage () {
     start = pageNum + (limit - pageNum);
     createFilteredArray();
-};
+}
 
-function createFilteredArray(){
-
-let filteredArrayPhotos;
+function createFilteredArray() {
+    let filteredArrayPhotos;
 
     filtering();
+    pageNumbers(1);
     sorting();
-    preparePaging(); 
-    renderImages(filteredArrayPhotos); 
+    preparePaging();
+    renderImages(filteredArrayPhotos);
 
-}
-    
+
     function filtering() {
-        checkFilter = $("#inputValue").val().toLowerCase();
-        filteredArrayPhotos = arrayPhotos.filter(function(){
-        if ( this.text().toLowerCase().indexOf(checkFilter) ){
-            filterImages();
-        }else {
-            return;
-        }
-    })
+        inputFilter = $("#inputValue").val().toLowerCase();
+
+        filteredArrayPhotos = arrayPhotos.filter(function () {
+            if (!this.text().toLowerCase().indexOf(inputFilter)) {
+                return;
+            } else {
+                filterImages();
+            }
+        });
+    }
+
 
     function sorting() {
-        filteredArrayPhotos = arrayPhotos.slice(start,end)
-        start = (pageNum-1)*limit;
-        end = (pageNum*limit);
-    }
-  
 
-    function preparePaging () {
+
+        if(pageNum < 1){
+            pageNum = 1;
+        }
+        if(dfsf){
+
+        }
+        if (fsdfs){
+
+        }
+
+    }
+
+
+    function preparePaging() {
         filteredArrayPhotos.forEach(function (photo, index) {
             if (index >= (pageNum * limit) & index < (pageNum * limit + limit)) {
                 photos.push(photo);
@@ -187,17 +189,12 @@ let filteredArrayPhotos;
         });
     }
 
-
 }
 
 
-let taggsss = arrayPhotos[3];
 
 
-/*
-    let pageNum = function() {
-        return Math.ceil(arrayPhotos.length / limit);
-*/
+
 
 
 

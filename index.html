@@ -9,7 +9,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Gallery</title>
 </head>
-<span>
     <div class="searchButton">
         <input type="text" id="inputValue" placeholder="Type to search"></input>
         <button onclick="filterImages()" type="button">SEARCH</button>
@@ -18,11 +17,11 @@
     <div id="imageContainer"></div>
     <div id="myModal" class="modal">
         <img id="current" class="modal-content" />
-        <pre id="exifResult"></pre>
+        <div id="exifResult"></div>
         <div id="map"></div>
         <span id="closeDlg" class="close">Close</span>
     </div>
-    <span id="currentPage" ></span>
+    <span id="pageNumber"></span>
 
     <script src="js/functions.js"></script>
     <script src="js/scripts.js"></script>

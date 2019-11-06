@@ -5,10 +5,11 @@ const modal = $('#myModal'),
     modalContent = $('.modal-content'),
     loading = $('#loading');
 
-let imageContainer = $('#imageContainer');
-    filter = $("#inputValue").val().toLowerCase();
+let imageContainer = $('#imageContainer'),
+    pageNumber = $('#pageNumber');
 
 getPhotos();
+addPhotosClickListener();
 
 closeDlg.click(function() {
     modal.css('display',"none");

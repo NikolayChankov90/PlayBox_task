@@ -18,7 +18,7 @@ goToPage(pageNum){
 		
 createFilteredArray(){
 	
-        filtering();
+    filtering();
 	sorting()
 	preparePaging()
 	renderImages(filteredArrayPhotos)
@@ -29,23 +29,22 @@ createFilteredArray(){
 	   let filteredArrayPhotos = arrayPhotos.filter(function(){	
 
 	proverqvame dali ima neshto w search poleto 
+
                
-	     return 
+	     return filteredArrayPhotos += 
+
 	    })
 
+	2#sorting(){
 
 
-	2#sort(){
+       
+       
 
-	}
 
-
-        #3 - paging(){
+        #3 - preparePaging(){
 	filteredArrayPhotos.forEach(function(photo, index){
-		//1 0-12
-		//2 12-[13]->
-		//3 24-[14]->
-		if(index >= (pageNum*limit) || index < (pageNum*limit+limit)){
+		if(index >= (pageNum*limit) & index < (pageNum*limit+limit)){
 			photos.push(photo);
 		}
 	});
