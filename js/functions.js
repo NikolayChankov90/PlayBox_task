@@ -28,9 +28,6 @@ function addPhotosClickListener(){
         googleMap.css('display','none');
         currentImageTag = $(this).attr("alt");
 
-        function readTags() {
-
-        }
          
         EXIF.getData(this, function() {
             let latLonData,
@@ -122,12 +119,13 @@ function filterImages(){
     let filter=$("#inputValue").val().toLowerCase();
     $(".imgBox").hide();
     $('.imgBox').each(function(){
-        if($(this).text().toLowerCase().indexOf(filter) !== -1) {
+        if($(this).text().toLowerCase().indexOf(filter) !== -1 || $("img", this).attr("alt").toLowerCase().indexOf(filter) !== -1) {
             $(this).show();
         } 
     });
+
     loadingMsg();
-};
+}
 
 ////////////////////////////////////////////// Pagination /////////////////////////////////////
 /*
