@@ -10,7 +10,7 @@ function loadingMsg(doShow, message){
         if(!message){
             message = 'Loading Please Wait.....';
         }
-        loading.html(`<p>${message}</p>`)
+        loading.html(`<p>${message}</p>`);
         loading.show();
         return;
     }
@@ -27,6 +27,10 @@ function addPhotosClickListener(){
         modal.css('display', 'block');
         googleMap.css('display','none');
         currentImageTag = $(this).attr("alt");
+
+        function readTags() {
+
+        }
          
         EXIF.getData(this, function() {
             let latLonData,
@@ -41,7 +45,7 @@ function addPhotosClickListener(){
                 extract: function () {
                     return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                         "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                        "Date taken: " + this.dateTaken + "\n" + "Tags: " + currentImageTag);
+                        "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
                 }
             };
 
@@ -126,15 +130,15 @@ function filterImages(){
 };
 
 ////////////////////////////////////////////// Pagination /////////////////////////////////////
-
+/*
 let start,
     end,
     limit = 12 ,
     photos = [],
     arrayPhotos= [];
 
-let  pageNum = function() {
-   return  Math.ceil(arrayPhotos.length / limit);
+let pageNum = function() {
+    return Math.ceil(arrayPhotos.length / limit) ;
 };
 
 function goToPage () {
@@ -146,7 +150,6 @@ function createFilteredArray() {
     let filteredArrayPhotos;
 
     filtering();
-    pageNumbers(1);
     sorting();
     preparePaging();
     renderImages(filteredArrayPhotos);
@@ -156,43 +159,26 @@ function createFilteredArray() {
         inputFilter = $("#inputValue").val().toLowerCase();
 
         filteredArrayPhotos = arrayPhotos.filter(function () {
-            if (!this.text().toLowerCase().indexOf(inputFilter)) {
-                return;
-            } else {
+            if (this.text().toLowerCase().indexOf(inputFilter)) {
                 filterImages();
             }
         });
     }
 
-
     function sorting() {
 
-
-        if(pageNum < 1){
-            pageNum = 1;
-        }
-        if(dfsf){
-
-        }
-        if (fsdfs){
-
-        }
-
-    }
-
+  }
 
     function preparePaging() {
-        filteredArrayPhotos.forEach(function (photo, index) {
-            if (index >= (pageNum * limit) & index < (pageNum * limit + limit)) {
-                photos.push(photo);
-            }
-        });
+        arrayPhotos.slice( start, end ) {
+          start = (page -1) * limit  ;
+          end = page*limit;
     }
 
 }
 
 
-
+*/
 
 
 
