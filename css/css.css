@@ -109,5 +109,9 @@
 
 .searchButton{
   text-align: center;
-  padding: 2px;
+  padding: 5px;
+}
+
+.pageButton {
+  align-content: center;
 }

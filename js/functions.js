@@ -26,7 +26,7 @@ function addPhotosClickListener(){
         modalContent.attr("alt", $(this).attr("alt") )
         modal.css('display', 'block');
         googleMap.css('display','none');
-        currentImageTag = $(this).attr("alt");
+        let currentImageTag = $(this).attr("data-category");
 
          
         EXIF.getData(this, function() {
@@ -62,7 +62,7 @@ function addPhotosClickListener(){
 function renderImages(data) {
     loadingMsg(true);
     data.forEach(function (item) {
-        imageContainer.append(`<div class='imgBox'><img id=${item.id} src=${item.location} alt=${item.tags} /><p>${item.title}</p></div>`);
+        imageContainer.append(`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tags} /><p>${item.title}</p></div>`);
     });
     addPhotosClickListener();
     loadingMsg();
@@ -114,69 +114,255 @@ function getLatLonData(exifdata){
 
 
 //Sort Images by name function 
-function filterImages(){
+function filterImagesByName(){
     loadingMsg(true);
     let filter=$("#inputValue").val().toLowerCase();
     $(".imgBox").hide();
     $('.imgBox').each(function(){
-        if($(this).text().toLowerCase().indexOf(filter) !== -1 || $("img", this).attr("alt").toLowerCase().indexOf(filter) !== -1) {
+        if($(this).text().toLowerCase().indexOf(filter) >= 0 ) {
             $(this).show();
-        } 
+        }
     });
 
     loadingMsg();
 }
 
+function filterImagesByTagName(){
+    loadingMsg(true);
+    let filterTag=$("#inputValueTag").val().toLowerCase();
+    $(".imgBox").hide();
+    $('.imgBox').each(function(){
+        if( $('img', this).attr('data-category').toLowerCase().indexOf(filterTag) !== -1) {
+            $(this).show();
+        }
+    });
+    loadingMsg();
+}
+
+function filteringArrayPhotos () {
+    inputFilter = $("#inputValue").val().toLowerCase();
+    filteredArrayPhotos = arrayPhotos.filter(function () {
+        for (let i = 0 ; i < arrayPhotos.length; i++) {
+            if (this.text().toLowerCase().indexOf(inputFilter)) {
+                return this[i];
+            }
+        }
+    });
+}
+
 ////////////////////////////////////////////// Pagination /////////////////////////////////////
+let start,
+    limit = 12;
+    photos = [];
+    arrayPhotos= [];
+
+function goToPage(pageNum){
+    start = pageNum+(limit-pageNum);
+    createFilteredArray()
+}
+
+function createFilteredArray(){
+
+    filtering();
+    sorting()
+    preparePaging()
+    renderImages(filteredArrayPhotos)
+
+  function filtering() {
+      let inputFilter = $("#inputValue").val().toLowerCase();
+      filteredArrayPhotos = arrayPhotos.filter(function () {
+
+      })
+  }
+
+  function sorting() {
+
+  }
+
+  function preparePaging() {
+       let pageNum =
+
+      filteredArrayPhotos.forEach(function(photo, index){
+          if(index >= (pageNum*limit) && index < (pageNum*limit+limit)){
+              photos.push(photo);
+          }
+      });
+
+  }
+
+
+
+}
+
 /*
 let start,
-    end,
     limit = 12 ,
+    currentPage= 1,
     photos = [],
     arrayPhotos= [];
 
-let pageNum = function() {
-    return Math.ceil(arrayPhotos.length / limit) ;
-};
-
-function goToPage () {
+function goToPage (pageNum) {
     start = pageNum + (limit - pageNum);
-    createFilteredArray();
+    createFilteredArray(photos);
 }
 
 function createFilteredArray() {
     let filteredArrayPhotos;
+    let numberOfPages = Math.ceil(arrayPhotos.length / limit);
+    let pageNumber = document.getElementById('page_number').getElementsByClassName('clickPageNumber');
 
-    filtering();
-    sorting();
+
+    function prevNextButtons () {
+
+    }
+
+    filteringArrayPhotos();
+    sortingArrayPhotos()
     preparePaging();
     renderImages(filteredArrayPhotos);
 
+    let selectedPage = function() {
+        for (let i = 0; i < page_number.length; i++) {
+            if (i === currentPage - 1) {
+                pageNumber[i].style.opacity = "1.0";
+            }
+            else {
+                pageNumber[i].style.opacity = "0.5";
+            }
+        }
+    };
+    let prevPage = function() {
+        if(current_page > 1) {
+            current_page--;
+            changePage(current_page);
+        }
+    };
 
-    function filtering() {
-        inputFilter = $("#inputValue").val().toLowerCase();
+    let nextPage = function() {
+        if(current_page < numPages()) {
+            current_page++;
+            changePage(current_page);
+        }
+    };
 
-        filteredArrayPhotos = arrayPhotos.filter(function () {
-            if (this.text().toLowerCase().indexOf(inputFilter)) {
-                filterImages();
+    let checkButtonOpacity = function() {
+        currentPage === 1 ? prevButton.classList.add('opacity') : prevButton.classList.remove('opacity');
+        currentPage === numPages() ? nextButton.classList.add('opacity') : nextButton.classList.remove('opacity');
+    };
+
+    let changePage = function(page) {
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > (numPages() -1)) {
+            page = numPages();
+        }
+
+        renderImages(filteredArrayPhotos);
+    };
+
+    let numPages = function() {
+        return Math.ceil(arrayPhotos.length / limit);
+    };
+
+
+    function filteringArrayPhotos () {
+      let inputFilter = $("#inputValue").val().toLowerCase();
+        let filteredArrayphotos = arrayPhotos.filter(function () {
+            for (let i = 0 ; i < arrayPhotos.length; i++) {
+                if (this.text().toLowerCase().indexOf(inputFilter)) {
+                    return this[i];
+                }
+            }
+        })
+    }
+
+    function sortingArrayPhotos(){
+
+    }
+
+    function preparePaging(){
+        filteredArrayPhotos.forEach(function(photo, index) {
+            if (index >= (pageNum * limit) && index < (pageNum * limit + limit)) {
+                photos.push(photo);
             }
         });
     }
 
-    function sorting() {
+}
+*/
 
-  }
 
-    function preparePaging() {
-        arrayPhotos.slice( start, end ) {
-          start = (page -1) * limit  ;
-          end = page*limit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    function filteringArrayPhotos () {
+        inputFilter = $("#inputValue").val().toLowerCase();
+        filteredArrayPhotos = arrayPhotos.filter(function () {
+            for (let i = 0 ; i < arrayPhotos.length; i++) {
+                if (this.text().toLowerCase().indexOf(inputFilter)) {
+                    return this[i];
+                }
+            }
+        });
     }
 
-}
+    function sortingArrayPhotos() {
+        let begin = ((currentPage - 1) * limit);
+        let end = begin + limit;
+        filteredArrayPhotos = arrayPhotos.slice(begin, end);
 
+    }
+
+    function preparePaging() {
+        filteredArrayPhotos.forEach(function (photo, index) {
+            if (index >= (pageNum * limit) && index < (pageNum * limit + limit)) {
+                photos.push(photo);
+            }
+        });
+        goToPage();
+    }
 
 */
+
+
+
+
+
+
+
+
+
 
 
 
