@@ -11,15 +11,13 @@
 </head>
 <body>
 <div class="searchButton">
-    <input type="text" id="inputValue" placeholder="Type to search by name"></input>
-    <button onclick="filterImagesByName()" type="button">Search</button>
-    <input  type="text" id="inputValueTag" placeholder="Type to search by tags"></input>
-    <button onclick="filterImagesByTagName()" type="button">Go</button>
+    <input type="text" id="inputValue" placeholder="Search by name or tag"></input>
+    <button onclick="goToPage(0,limit)" type="button">Search</button>
 </div>
 <div id="loading"></div>
 <div id="imageContainer"></div>
 <div id="pagination">
-    <span id="page_number" class="outline-none"></span>
+    <span id="page_number" class="outline-none">Page :</span>
 </div>
 <div id="myModal" class="modal">
     <img id="current" class="modal-content" />

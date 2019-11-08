@@ -19,9 +19,9 @@ goToPage(pageNum){
 createFilteredArray(){
 	
     filtering();
-	sorting()
-	preparePaging()
-	renderImages(filteredArrayPhotos)
+    sorting()
+    preparePaging()
+    renderImages(filteredArrayPhotos)
 
 
 
@@ -30,8 +30,7 @@ createFilteredArray(){
 
 	proverqvame dali ima neshto w search poleto 
 
-               
-	     return filteredArrayPhotos += 
+         
 
 	    })
 

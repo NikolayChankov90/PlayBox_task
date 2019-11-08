@@ -1,8 +1,8 @@
 
 function getPhotos() {
-    $.getJSON("./json/photos.json", function(data){
+    $.getJSON("./json/photos.json", function(data) {
         arrayPhotos = data;
-        renderImages(data);
+       goToPage(0, limit);
     })
 }
 function loadingMsg(doShow, message){
@@ -21,14 +21,14 @@ function loadingMsg(doShow, message){
 function addPhotosClickListener(){
     let images = $(".imgBox img");
     images.click(function() {
-        
+
         modalContent.attr('src', $(this).attr('src'));
-        modalContent.attr("alt", $(this).attr("alt") )
+        modalContent.attr("alt", $(this).attr("alt") );
         modal.css('display', 'block');
         googleMap.css('display','none');
         let currentImageTag = $(this).attr("data-category");
 
-         
+
         EXIF.getData(this, function() {
             let latLonData,
                 latestTags = {
@@ -61,9 +61,11 @@ function addPhotosClickListener(){
 
 function renderImages(data) {
     loadingMsg(true);
+    let images= "";
     data.forEach(function (item) {
-        imageContainer.append(`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tags} /><p>${item.title}</p></div>`);
+        images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tags} /><p>${item.title}</p></div>`);
     });
+    imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
 }
@@ -77,9 +79,9 @@ function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     }
     return dd;
 }
-
+let map;
 function initMap(latFinal,lonFinal) {
-    let map = new google.maps.Map(
+    map = new google.maps.Map(
         document.getElementById('map'),
         {
             center: {lat: latFinal, lng: lonFinal},
@@ -112,260 +114,78 @@ function getLatLonData(exifdata){
     return [lat, lon];
 }
 
+////////////Pagination//////////////////////////
+let limit = 12;
+let arrayPhotos = [];
 
-//Sort Images by name function 
-function filterImagesByName(){
-    loadingMsg(true);
-    let filter=$("#inputValue").val().toLowerCase();
-    $(".imgBox").hide();
-    $('.imgBox').each(function(){
-        if($(this).text().toLowerCase().indexOf(filter) >= 0 ) {
-            $(this).show();
-        }
-    });
+function getImageArray( filter, imgIndexStart, numberOfImages ) {
+    let filteredArrayPhotos = [];
+    let ofsCntr = 0;
 
-    loadingMsg();
-}
+    if ( numberOfImages <1 ) {
+        numberOfImages = arrayPhotos.length;
+    }
 
-function filterImagesByTagName(){
-    loadingMsg(true);
-    let filterTag=$("#inputValueTag").val().toLowerCase();
-    $(".imgBox").hide();
-    $('.imgBox').each(function(){
-        if( $('img', this).attr('data-category').toLowerCase().indexOf(filterTag) !== -1) {
-            $(this).show();
-        }
-    });
-    loadingMsg();
-}
+    if ( filter !== '' ) {
 
-function filteringArrayPhotos () {
-    inputFilter = $("#inputValue").val().toLowerCase();
-    filteredArrayPhotos = arrayPhotos.filter(function () {
-        for (let i = 0 ; i < arrayPhotos.length; i++) {
-            if (this.text().toLowerCase().indexOf(inputFilter)) {
-                return this[i];
+        const tmpFiltered = arrayPhotos.filter(image => image.title.toLowerCase().indexOf(filter) >= 0);
+        for ( let arrayKey in tmpFiltered ) {
+            const elem = tmpFiltered[arrayKey];
+            if ( ofsCntr < imgIndexStart )
+            {
+                ofsCntr++;
+                continue;
             }
+            ofsCntr++;
+
+            filteredArrayPhotos.push(elem);
+            if ( filteredArrayPhotos.length >= numberOfImages )
+                break;
         }
-    });
+    } else {
+        for (let arrayKey in arrayPhotos) {
+            const elem = arrayPhotos[arrayKey];
+            if (ofsCntr < imgIndexStart ){
+                ofsCntr++;
+                continue;
+            }
+            ofsCntr++;
+
+            filteredArrayPhotos.push(elem);
+            if ( filteredArrayPhotos.length >= numberOfImages ) break;
+        }
+    }
+    return filteredArrayPhotos;
 }
 
-////////////////////////////////////////////// Pagination /////////////////////////////////////
-let start,
-    limit = 12;
-    photos = [];
-    arrayPhotos= [];
-
-function goToPage(pageNum){
-    start = pageNum+(limit-pageNum);
-    createFilteredArray()
+function getImagesCount() {
+    let filter = $("#inputValue").val().toLowerCase();
+    const imgs = getImageArray(filter,0,-1);
+    return imgs.length;
 }
 
-function createFilteredArray(){
+function RenderPagingView(itemsCount) {
+    totalPages = Math.ceil(itemsCount / limit);
+    let paginationContainer = $("#pagination");
+    let intDom ="";
+    for (let i = 0; i < totalPages; i++) {
+        intDom += ("<span class='clickPageNumber' onclick='goToPage("+i+","+limit+")'>" + (i+1) + "</span>");
+    }
+    paginationContainer.html(intDom);
+}
 
-    filtering();
-    sorting()
-    preparePaging()
-    renderImages(filteredArrayPhotos)
+function goToPage(pageNum, count) {
 
-  function filtering() {
-      let inputFilter = $("#inputValue").val().toLowerCase();
-      filteredArrayPhotos = arrayPhotos.filter(function () {
-
-      })
-  }
-
-  function sorting() {
-
-  }
-
-  function preparePaging() {
-       let pageNum =
-
-      filteredArrayPhotos.forEach(function(photo, index){
-          if(index >= (pageNum*limit) && index < (pageNum*limit+limit)){
-              photos.push(photo);
-          }
-      });
-
-  }
-
-
+    let filter = $("#inputValue").val().toLowerCase();
+    let imgIndex = pageNum * count;
+    goToItem(filter,imgIndex, count);
 
 }
 
-/*
-let start,
-    limit = 12 ,
-    currentPage= 1,
-    photos = [],
-    arrayPhotos= [];
 
-function goToPage (pageNum) {
-    start = pageNum + (limit - pageNum);
-    createFilteredArray(photos);
-}
-
-function createFilteredArray() {
-    let filteredArrayPhotos;
-    let numberOfPages = Math.ceil(arrayPhotos.length / limit);
-    let pageNumber = document.getElementById('page_number').getElementsByClassName('clickPageNumber');
-
-
-    function prevNextButtons () {
-
-    }
-
-    filteringArrayPhotos();
-    sortingArrayPhotos()
-    preparePaging();
-    renderImages(filteredArrayPhotos);
-
-    let selectedPage = function() {
-        for (let i = 0; i < page_number.length; i++) {
-            if (i === currentPage - 1) {
-                pageNumber[i].style.opacity = "1.0";
-            }
-            else {
-                pageNumber[i].style.opacity = "0.5";
-            }
-        }
-    };
-    let prevPage = function() {
-        if(current_page > 1) {
-            current_page--;
-            changePage(current_page);
-        }
-    };
-
-    let nextPage = function() {
-        if(current_page < numPages()) {
-            current_page++;
-            changePage(current_page);
-        }
-    };
-
-    let checkButtonOpacity = function() {
-        currentPage === 1 ? prevButton.classList.add('opacity') : prevButton.classList.remove('opacity');
-        currentPage === numPages() ? nextButton.classList.add('opacity') : nextButton.classList.remove('opacity');
-    };
-
-    let changePage = function(page) {
-
-        if (page < 1) {
-            page = 1;
-        }
-        if (page > (numPages() -1)) {
-            page = numPages();
-        }
-
-        renderImages(filteredArrayPhotos);
-    };
-
-    let numPages = function() {
-        return Math.ceil(arrayPhotos.length / limit);
-    };
-
-
-    function filteringArrayPhotos () {
-      let inputFilter = $("#inputValue").val().toLowerCase();
-        let filteredArrayphotos = arrayPhotos.filter(function () {
-            for (let i = 0 ; i < arrayPhotos.length; i++) {
-                if (this.text().toLowerCase().indexOf(inputFilter)) {
-                    return this[i];
-                }
-            }
-        })
-    }
-
-    function sortingArrayPhotos(){
-
-    }
-
-    function preparePaging(){
-        filteredArrayPhotos.forEach(function(photo, index) {
-            if (index >= (pageNum * limit) && index < (pageNum * limit + limit)) {
-                photos.push(photo);
-            }
-        });
-    }
-
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    function filteringArrayPhotos () {
-        inputFilter = $("#inputValue").val().toLowerCase();
-        filteredArrayPhotos = arrayPhotos.filter(function () {
-            for (let i = 0 ; i < arrayPhotos.length; i++) {
-                if (this.text().toLowerCase().indexOf(inputFilter)) {
-                    return this[i];
-                }
-            }
-        });
-    }
-
-    function sortingArrayPhotos() {
-        let begin = ((currentPage - 1) * limit);
-        let end = begin + limit;
-        filteredArrayPhotos = arrayPhotos.slice(begin, end);
-
-    }
-
-    function preparePaging() {
-        filteredArrayPhotos.forEach(function (photo, index) {
-            if (index >= (pageNum * limit) && index < (pageNum * limit + limit)) {
-                photos.push(photo);
-            }
-        });
-        goToPage();
-    }
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ function goToItem(filter,imgIndex,count) {
+     let imagesToDisplay =  getImageArray(filter, imgIndex, count);
+     const imgCount = getImagesCount();
+     RenderPagingView(imgCount);
+     renderImages(imagesToDisplay);
+ }
