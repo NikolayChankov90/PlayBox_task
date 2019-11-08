@@ -17,13 +17,13 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 
-// Modal Dialog
+// Modal Dialog ------>>>>>>
 function addPhotosClickListener(){
     let images = $(".imgBox img");
     images.click(function() {
 
         modalContent.attr('src', $(this).attr('src'));
-        modalContent.attr("alt", $(this).attr("alt") );
+        modalContent.attr("alt", $(this).attr("alt") )
         modal.css('display', 'block');
         googleMap.css('display','none');
         let currentImageTag = $(this).attr("data-category");
@@ -31,31 +31,31 @@ function addPhotosClickListener(){
 
         EXIF.getData(this, function() {
             let latLonData,
-                latestTags = {
-                maker: EXIF.getTag(this, "Make"),
-                model: EXIF.getTag(this, "Model"),
-                speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
-                exposureTime: EXIF.getTag(this, "ExposureTime"),
-                fNumber: EXIF.getTag(this, "FNumber"),
-                focalLength: EXIF.getTag(this, "FocalLength"),
-                dateTaken: EXIF.getTag(this, "DateTime"),
-                extract: function () {
-                    return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                        "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                        "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
-                }
-            };
-
-            result.text(latestTags.extract());
-
-            latLonData = getLatLonData(this.exifdata);
-
-            if (latLonData[0] && latLonData[1]) {
-                googleMap.css('display','block');
-                initMap(latLonData[0], latLonData[1]);
+        latestTags = {
+            maker: EXIF.getTag(this, "Make"),
+            model: EXIF.getTag(this, "Model"),
+            speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
+            exposureTime: EXIF.getTag(this, "ExposureTime"),
+            fNumber: EXIF.getTag(this, "FNumber"),
+            focalLength: EXIF.getTag(this, "FocalLength"),
+            dateTaken: EXIF.getTag(this, "DateTime"),
+            extract: function () {
+                return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                    "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                    "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
             }
-        })
-    });
+        };
+
+    result.text(latestTags.extract());
+
+    latLonData = getLatLonData(this.exifdata);
+
+    if (latLonData[0] && latLonData[1]) {
+        googleMap.css('display','block');
+        initMap(latLonData[0], latLonData[1]);
+    }
+})
+});
 
 }
 
@@ -70,18 +70,18 @@ function renderImages(data) {
     loadingMsg();
 }
 
-// Function for converting Degrees,Minutes,Seconds, to DecimalData -->
+// Function for converting Degrees,Minutes,Seconds, to DecimalData ---->>>>>>
 
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     var dd = degrees + (minutes/60) + (seconds/3600);
     if (direction === "S" || direction === "W") {
-        dd = dd * -1; 
+        dd = dd * -1;
     }
     return dd;
 }
-let map;
+
 function initMap(latFinal,lonFinal) {
-    map = new google.maps.Map(
+    let map = new google.maps.Map(
         document.getElementById('map'),
         {
             center: {lat: latFinal, lng: lonFinal},
@@ -114,7 +114,8 @@ function getLatLonData(exifdata){
     return [lat, lon];
 }
 
-////////////Pagination//////////////////////////
+// Pagination ---->>>>>>
+
 let limit = 12;
 let arrayPhotos = [];
 
@@ -182,10 +183,11 @@ function goToPage(pageNum, count) {
 
 }
 
-
- function goToItem(filter,imgIndex,count) {
+function goToItem(filter,imgIndex,count) {
      let imagesToDisplay =  getImageArray(filter, imgIndex, count);
      const imgCount = getImagesCount();
      RenderPagingView(imgCount);
      renderImages(imagesToDisplay);
  }
+
+
