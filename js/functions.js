@@ -119,9 +119,10 @@ let limit = 12;
 let arrayPhotos = [];
 
 
-function getImageArray(filter, imgIndexStart, numberOfImages) {
+function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази функция съм я преправил кажи речи цялата след като добавих search by tag в сравнение с предния commit 10.11.2019.
     let filteredArrayPhotos = [];
-    const searchByTag = filter[0] === '#';
+    let tagSign = "#";
+    const searchByTag = filter[0] === tagSign;
     let searchCondition = searchByTag ? filter.slice(1) : filter;
 
     if (numberOfImages < 1 ){

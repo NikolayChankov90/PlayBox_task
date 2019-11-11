@@ -85,4 +85,8 @@ Example:
 
 How to get photos from local path and from JSON file with AJAX request . After that append it to html tag. 
 
+////////////// New Features 11/11/2019 
+
+1. Search поле търсене по един или повече tag-а, примерно "#sunset", "#car #red" (по # ще различаваш дали да търсиш по title или в tag-овете)  DONE 
+2. Когато показваш снимка в диалог tag-овете ги правиш на линкове или бутони (няма значение в момента) и като потребителя цъкне върху някой tag пак да правиш търсене по него
  
