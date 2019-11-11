@@ -11,7 +11,7 @@ page 3 -> start 24
 
 goToPage(pageNum){
 
-   start = pageNum+(limit-pageNum);
+   start = page*limit;
    createFilteredArray()
 
 }
@@ -30,17 +30,11 @@ createFilteredArray(){
 
 	proverqvame dali ima neshto w search poleto 
 
-         
-
 	    })
 
 	2#sorting(){
 
-
-       
-       
-
-
+}
         #3 - preparePaging(){
 	filteredArrayPhotos.forEach(function(photo, index){
 		if(index >= (pageNum*limit) & index < (pageNum*limit+limit)){

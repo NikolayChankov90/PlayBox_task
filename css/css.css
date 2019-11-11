@@ -126,3 +126,6 @@
 .clickPageNumber.current{
   opacity: 0.7;
 }
+#searchField {
+margin-left: 40%;
+}

@@ -1,4 +1,4 @@
-
+window.onload=addPhotosClickListener;
 function getPhotos() {
     $.getJSON("./json/photos.json", function(data) {
         arrayPhotos = data;
@@ -23,11 +23,10 @@ function addPhotosClickListener(){
     images.click(function() {
 
         modalContent.attr('src', $(this).attr('src'));
-        modalContent.attr("alt", $(this).attr("alt") )
+        modalContent.attr("alt", $(this).attr("alt"));
         modal.css('display', 'block');
         googleMap.css('display','none');
         let currentImageTag = $(this).attr("data-category");
-
 
         EXIF.getData(this, function() {
             let latLonData,
@@ -63,7 +62,7 @@ function renderImages(data) {
     loadingMsg(true);
     let images= "";
     data.forEach(function (item) {
-        images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tags} /><p>${item.title}</p></div>`);
+        images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tag} /><p>${item.title}</p></div>`);
     });
     imageContainer.html(images);
     addPhotosClickListener();
@@ -119,41 +118,24 @@ function getLatLonData(exifdata){
 let limit = 12;
 let arrayPhotos = [];
 
-function getImageArray( filter, imgIndexStart, numberOfImages ) {
-    let filteredArrayPhotos = [];
-    let ofsCntr = 0;
 
-    if ( numberOfImages <1 ) {
+function getImageArray(filter, imgIndexStart, numberOfImages) {
+    let filteredArrayPhotos = [];
+    const searchByTag = filter[0] === '#';
+    let searchCondition = searchByTag ? filter.slice(1) : filter;
+
+    if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
 
-    if ( filter !== '' ) {
+    let tmpFiltered = arrayPhotos.filter(searchByTag ? image =>  image.tag.findIndex(a => a.toLowerCase().includes(searchCondition)) >= 0 :
+        image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
 
-        const tmpFiltered = arrayPhotos.filter(image => image.title.toLowerCase().indexOf(filter) >= 0);
-        for ( let arrayKey in tmpFiltered ) {
-            const elem = tmpFiltered[arrayKey];
-            if ( ofsCntr < imgIndexStart )
-            {
-                ofsCntr++;
-                continue;
-            }
-            ofsCntr++;
+    for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
+        filteredArrayPhotos.push(tmpFiltered[i]);
 
-            filteredArrayPhotos.push(elem);
-            if ( filteredArrayPhotos.length >= numberOfImages )
-                break;
-        }
-    } else {
-        for (let arrayKey in arrayPhotos) {
-            const elem = arrayPhotos[arrayKey];
-            if (ofsCntr < imgIndexStart ){
-                ofsCntr++;
-                continue;
-            }
-            ofsCntr++;
-
-            filteredArrayPhotos.push(elem);
-            if ( filteredArrayPhotos.length >= numberOfImages ) break;
+        if (filteredArrayPhotos.length >= numberOfImages) {
+            break;
         }
     }
     return filteredArrayPhotos;
@@ -188,6 +170,8 @@ function goToItem(filter,imgIndex,count) {
      const imgCount = getImagesCount();
      RenderPagingView(imgCount);
      renderImages(imagesToDisplay);
+
  }
+///////////////////////////////////////////// END //////////////////////////////////////
 
 
