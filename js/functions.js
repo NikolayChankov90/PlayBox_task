@@ -172,6 +172,6 @@ function goToItem(filter,imgIndex,count) {
      renderImages(imagesToDisplay);
 
  }
-///////////////////////////////////////////// END //////////////////////////////////////
+///// END OF PAGINATION <<----
 
 
