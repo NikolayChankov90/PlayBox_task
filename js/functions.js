@@ -129,7 +129,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
         numberOfImages = arrayPhotos.length;
     }
 
-    let tmpFiltered = arrayPhotos.filter(searchByTag ? image =>  image.tag.findIndex(a => a.toLowerCase().includes(searchCondition)) >= 0 :
+    let tmpFiltered = arrayPhotos.filter(
+        searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
         image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
