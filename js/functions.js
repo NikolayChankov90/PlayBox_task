@@ -118,7 +118,6 @@ function getLatLonData(exifdata){
 let limit = 12;
 let arrayPhotos = [];
 
-
 function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази функция съм я преправил кажи речи цялата след като добавих search by tag в сравнение с предния commit 10.11.2019.
     let filteredArrayPhotos = [];
     let tagSign = "#";
@@ -131,7 +130,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
 
     let tmpFiltered = arrayPhotos.filter(
         searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
-        image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
+            image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
         filteredArrayPhotos.push(tmpFiltered[i]);
@@ -142,6 +141,34 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
     }
     return filteredArrayPhotos;
 }
+/////////////////////////////////////////////////////////////////SEARCH BY MULTIPLE TAGS  , but pagination is not working now:
+// function getImageArray(filter, imgIndexStart, numberOfImages) {
+//     let filteredArrayPhotos = [];
+//     let tagSign = "#";
+//     searchByTag = filter[0] === tagSign;
+//
+//     let searchCondition = searchByTag ? filter.slice(1) : filter;
+//
+//     let tmpFiltered = arrayPhotos.filter(searchFilter);
+//     console.log(tmpFiltered);
+//
+//     function searchFilter(image) {
+//         let tagPattern = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '') );
+//         let titlePattern = new RegExp(filter.replace(/,/g, '|'));
+//         return searchByTag ? tagPattern.test(image.tag) : titlePattern.test(image.title);
+//     }
+//
+//     for (let i = imgIndexStart; i < tmpFiltered.length ; i++) {
+//         filteredArrayPhotos.push(tmpFiltered[i]);
+//
+//         if (filteredArrayPhotos.length >= numberOfImages) {
+//             break;
+//         }
+//     }
+//     return filteredArrayPhotos;
+//
+// }
+
 
 function getImagesCount() {
     let filter = $("#inputValue").val().toLowerCase();
