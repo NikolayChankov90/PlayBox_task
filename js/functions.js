@@ -141,7 +141,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
     }
     return filteredArrayPhotos;
 }
-/////////////////////////////////////////////////////////////////SEARCH BY MULTIPLE TAGS  , but pagination is not working now:
+
+/////////////////////////////////////////////////////////////////SEARCH BY MULTIPLE TAGS  , but pagination is not integrated:
 // function getImageArray(filter, imgIndexStart, numberOfImages) {
 //     let filteredArrayPhotos = [];
 //     let tagSign = "#";
@@ -168,7 +169,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
 //     return filteredArrayPhotos;
 //
 // }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function getImagesCount() {
     let filter = $("#inputValue").val().toLowerCase();
