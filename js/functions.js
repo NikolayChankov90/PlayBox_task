@@ -39,9 +39,16 @@ function addPhotosClickListener(){
             focalLength: EXIF.getTag(this, "FocalLength"),
             dateTaken: EXIF.getTag(this, "DateTime"),
             extract: function () {
-                return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                    "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                    "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+                if(!this.exposureTime){
+                    return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                        "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                        "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+                }else {
+                    return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                        "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                        "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+
+                }
             }
         };
 
@@ -118,47 +125,46 @@ function getLatLonData(exifdata){
 let limit = 12;
 let arrayPhotos = [];
 
-function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази функция съм я преправил кажи речи цялата след като добавих search by tag в сравнение с предния commit 10.11.2019.
-    let filteredArrayPhotos = [];
-    let tagSign = "#";
-    const searchByTag = filter[0] === tagSign;
-    let searchCondition = searchByTag ? filter.slice(1) : filter;
-
+function getImageArray(filter, imgIndexStart, numberOfImages) {
+    const tagSign = "#";
+    let filteredArrayPhotos = [],
+        searchByTag = filter[0] === tagSign,
+        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')),
+        regexTitle = new RegExp(filter.replace(/,/g, '|'));
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
-
-    let tmpFiltered = arrayPhotos.filter(
-        searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
-            image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
+    let tmpFiltered = [];
+     tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
+        return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
+    });
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
-        filteredArrayPhotos.push(tmpFiltered[i]);
-
+       filteredArrayPhotos.push(tmpFiltered[i]);
         if (filteredArrayPhotos.length >= numberOfImages) {
             break;
         }
     }
-    return filteredArrayPhotos;
+
+ return filteredArrayPhotos;
+
 }
-/////////////////////////////////////////////////////////////////SEARCH BY MULTIPLE TAGS  , but pagination is not working now:
+///////////  ФУНКЦИЯ КОЯТО ТЪРСИ КЕЙС СЕНСИТИВ ТАГ , НО БЕЗ MULTIPLE SEARCH : ///////////////////
 // function getImageArray(filter, imgIndexStart, numberOfImages) {
 //     let filteredArrayPhotos = [];
 //     let tagSign = "#";
-//     searchByTag = filter[0] === tagSign;
-//
+//     const searchByTag = filter[0] === tagSign;
 //     let searchCondition = searchByTag ? filter.slice(1) : filter;
 //
-//     let tmpFiltered = arrayPhotos.filter(searchFilter);
-//     console.log(tmpFiltered);
-//
-//     function searchFilter(image) {
-//         let tagPattern = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '') );
-//         let titlePattern = new RegExp(filter.replace(/,/g, '|'));
-//         return searchByTag ? tagPattern.test(image.tag) : titlePattern.test(image.title);
+//     if (numberOfImages < 1 ){
+//         numberOfImages = arrayPhotos.length;
 //     }
 //
-//     for (let i = imgIndexStart; i < tmpFiltered.length ; i++) {
+//     let tmpFiltered = arrayPhotos.filter(
+//         searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
+//             image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
+//
+//     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
 //         filteredArrayPhotos.push(tmpFiltered[i]);
 //
 //         if (filteredArrayPhotos.length >= numberOfImages) {
@@ -166,7 +172,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
 //         }
 //     }
 //     return filteredArrayPhotos;
-//
 // }
 
 

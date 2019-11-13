@@ -1,37 +1,37 @@
 ﻿[
   {
     "location": "Photos/_DSC0150.jpg",
-    "title": "Title001",
+    "title": "Hotel",
     "id": "image_id_001",
     "tag": [ "building", "city", "hotel"]
   },
   {
     "location": "Photos/_DSC0226.jpg",
-    "title": "Title002",
-    "id": "image_id_002",
+    "title": "Fruit Tree",
+    "id": "Fruit_Tree",
     "tag": [ "fruit", "palm"]
   },
   {
     "location": "Photos/_DSC0442.jpg",
-    "title": "Title003",
+    "title": "Holy Trinity Church",
     "id": "image_id_003",
     "tag": [ "building" , "cathedral" , "history"]
   },
   {
     "location": "Photos/_DSC6927-Е.jpg",
-    "title": "Title004",
+    "title": "The Moon",
     "id": "image_id_004",
     "tag": [ "moon", "cosmos"]
   },
   {
     "location": "Photos/_DSC7679.jpg",
-    "title": "Title005",
+    "title": "Sunset over a lake",
     "id": "image_id_005",
     "tag": [ "lake" , "sunset" , "nature"]
   },
   {
     "location": "Photos/100_6118.jpg",
-    "title": "Title006",
+    "title": "London Bus",
     "id": "image_id_006",
     "tag": [ "bus" , "red" , "people"]
   },

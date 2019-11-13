@@ -84,7 +84,6 @@
   cursor: pointer;
 }
 
-
 #loading {
   display:block;
   width: 100%;
@@ -111,6 +110,7 @@
   text-align: center;
   padding: 5px;
 }
+
 #pagination {
   size: 10px;
 }
@@ -123,9 +123,23 @@
   padding: 20px;
 }
 
-.clickPageNumber.current{
-  opacity: 0.7;
+.tooltiptext{
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
 }
-#searchField {
-margin-left: 40%;
+
+#inputValue:hover .tooltiptext{
+  visibility: visible;
 }
+
+
+
+
+
+
