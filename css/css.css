@@ -112,30 +112,19 @@
 }
 
 #pagination {
-  size: 10px;
+  size: 50px;
+  margin-left: 42%;
 }
 .clickPageNumber{
   cursor: pointer;
-  opacity: 1;
   color: blue;
-  size: 10px;
-  text-align: center;
-  padding: 20px;
-}
+  size: 20px;
+  padding: 30px;
 
-.tooltiptext{
-  visibility: hidden;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
 }
-
-#inputValue:hover .tooltiptext{
-  visibility: visible;
+.clickPageNumber:hover{
+  color: black;
+  opacity: 0.3;
 }
 
 
