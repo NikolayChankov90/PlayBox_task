@@ -129,7 +129,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     const tagSign = "#";
     let filteredArrayPhotos = [],
         searchByTag = filter[0] === tagSign,
-        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')),
+        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '').match()),
         regexTitle = new RegExp(filter.replace(/,/g, '|'));
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
@@ -145,7 +145,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
             break;
         }
     }
-
  return filteredArrayPhotos;
 
 }
