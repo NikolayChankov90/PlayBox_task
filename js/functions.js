@@ -130,6 +130,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
         regexTitle = new RegExp(filter.replace(/,/g, '|')+'$');
     // the  " $ " helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
     // but if the word in the search field is on first position in the title or in the Tag , it does not match.
+
+    if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
 
