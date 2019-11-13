@@ -134,8 +134,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
-    let tmpFiltered = [];
-     tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
+
+     let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
         return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
     });
 
