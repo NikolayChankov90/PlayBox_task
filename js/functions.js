@@ -129,7 +129,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     const tagSign = "#";
     let filteredArrayPhotos = [],
         searchByTag = filter[0] === tagSign,
-        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '').match()),
+        regex = /|\b/g,
+        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')),
         regexTitle = new RegExp(filter.replace(/,/g, '|'));
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
