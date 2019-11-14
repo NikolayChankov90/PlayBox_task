@@ -18,14 +18,12 @@ function loadingMsg(doShow, message){
 
 // Modal Dialog ------>>>>>>
 function addPhotosClickListener(){
-    let images = $(".imgBox img"), currentImageTag;
+    let images = $(".imgBox img");
     images.click(function() {
 
         modalContent.attr('src', $(this).attr('src'));
         modal.css('display', 'block');
         googleMap.css('display','none');
-        let currentImageTag =$(this).attr('data-category');
-
         EXIF.getData(this, function() {
             let latLonData,
                 latestTags = {
@@ -40,11 +38,11 @@ function addPhotosClickListener(){
                         if (!this.exposureTime) {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+                                "Date taken: " + this.dateTaken + "\n" + "Tag: " );
                          }else {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+                                "Date taken: " + this.dateTaken + "\n" + "Tag: " );
 
                          }
                     }
@@ -64,11 +62,13 @@ function addPhotosClickListener(){
 function renderImages(data) {
     loadingMsg(true);
     let images= "";
+    let itemTags=[];
     data.forEach(function (item) {
         images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tag} /><p>${item.title}</p></div>`);
-        let imageTags = item.tag;
-        console.log(imageTags);
+        itemTags = item.tag;
     });
+    result.html(itemTags);
+    console.log(result);
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
@@ -126,10 +126,10 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     const tagSign = "#";
     let filteredArrayPhotos = [],
         searchByTag = filter[0] === tagSign,
-        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/gm, '')+ '$'),
-        regexTitle = new RegExp(filter.replace(/,/g, '|')+'$');
-    // the  " $ " helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
-    // but if the word in the search field is on first position in the title or in the Tag , it does not match.
+        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')+'$'),
+        regexTitle = new RegExp(filter.replace(/,/g, '|'));
+    // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
+    // but if the word in the search field is on first position in the title or in the Tag , it does not match.Only if it is last.
 
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
@@ -146,33 +146,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
         }
     }
  return filteredArrayPhotos;
-
 }
-///////////  ФУНКЦИЯ КОЯТО ТЪРСИ КЕЙС СЕНСИТИВ ТАГ , НО БЕЗ MULTIPLE SEARCH : ///////////////////
-// function getImageArray(filter, imgIndexStart, numberOfImages) {
-//     let filteredArrayPhotos = [];
-//     let tagSign = "#";
-//     const searchByTag = filter[0] === tagSign;
-//     let searchCondition = searchByTag ? filter.slice(1) : filter;
-//
-//     if (numberOfImages < 1 ){
-//         numberOfImages = arrayPhotos.length;
-//     }
-//
-//     let tmpFiltered = arrayPhotos.filter(
-//         searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
-//             image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
-//
-//     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
-//         filteredArrayPhotos.push(tmpFiltered[i]);
-//
-//         if (filteredArrayPhotos.length >= numberOfImages) {
-//             break;
-//         }
-//     }
-//     return filteredArrayPhotos;
-// }
-
 
 function getImagesCount() {
     let filter = $("#inputValue").val().toLowerCase();
