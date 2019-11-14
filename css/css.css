@@ -84,7 +84,6 @@
   cursor: pointer;
 }
 
-
 #loading {
   display:block;
   width: 100%;
@@ -111,21 +110,25 @@
   text-align: center;
   padding: 5px;
 }
+
 #pagination {
-  size: 10px;
+  size: 50px;
+  margin-left: 42%;
 }
 .clickPageNumber{
   cursor: pointer;
-  opacity: 1;
   color: blue;
-  size: 10px;
-  text-align: center;
-  padding: 20px;
+  size: 20px;
+  padding: 30px;
+
+}
+.clickPageNumber:hover{
+  color: black;
+  opacity: 0.3;
 }
 
-.clickPageNumber.current{
-  opacity: 0.7;
-}
-#searchField {
-margin-left: 40%;
-}
+
+
+
+
+
