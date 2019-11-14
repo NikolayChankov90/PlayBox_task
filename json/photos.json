@@ -15,7 +15,7 @@
     "location": "Photos/_DSC0442.jpg",
     "title": "Holy Trinity Church",
     "id": "image_id_003",
-    "tag": [ "building" , "cathedral" , "history"]
+    "tag": [ "building"  , "history"]
   },
   {
     "location": "Photos/_DSC6927-Е.jpg",
@@ -39,7 +39,7 @@
     "location": "Photos/100_6149.jpg",
     "title": "Church in England",
     "id": "image_id_007",
-    "tag": [ "building" , "cathedral" , "history"]
+    "tag": [ "building"  , "history"]
   },
   {
     "location": "Photos/103_0695_Pano.jpg",
@@ -81,7 +81,7 @@
     "location": "Photos/20180505_141706.jpg",
     "title": "Upside-down look",
     "id": "image_id_014",
-    "tag": [ "church", "cathedral"]
+    "tag": [ "church"]
   },
   {
     "location": "Photos/20180608_203614.jpg",

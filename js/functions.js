@@ -24,6 +24,7 @@ function addPhotosClickListener(){
         modalContent.attr('src', $(this).attr('src'));
         modal.css('display', 'block');
         googleMap.css('display','none');
+        let currentImageTag =  $(this).attr('data-category');
         EXIF.getData(this, function() {
             let latLonData,
                 latestTags = {
@@ -38,11 +39,11 @@ function addPhotosClickListener(){
                         if (!this.exposureTime) {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag: " );
+                                "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
                          }else {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag: " );
+                                "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag)
 
                          }
                     }
@@ -63,12 +64,12 @@ function renderImages(data) {
     loadingMsg(true);
     let images= "";
     let itemTags=[];
+    let filter = $("#inputValue").val().toLowerCase();
+    let btn = $("#searchBtn").onclick;
     data.forEach(function (item) {
         images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tag} /><p>${item.title}</p></div>`);
-        itemTags = item.tag;
     });
-    result.html(itemTags);
-    console.log(result);
+
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
@@ -123,11 +124,12 @@ let limit = 12;
 let arrayPhotos = [];
 
 function getImageArray(filter, imgIndexStart, numberOfImages) {
-    const tagSign = "#";
-    let filteredArrayPhotos = [],
-        searchByTag = filter[0] === tagSign,
-        regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')+'$'),
-        regexTitle = new RegExp(filter.replace(/,/g, '|'));
+    let filteredArrayPhotos, searchByTag,regexTag,regexTitle;
+    filteredArrayPhotos = [];
+    searchByTag = filter[0]==='#';
+    regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, ''));
+    regexTitle = new RegExp(filter.replace(/,/g, '|'));
+
     // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
     // but if the word in the search field is on first position in the title or in the Tag , it does not match.Only if it is last.
 
@@ -135,9 +137,10 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
         numberOfImages = arrayPhotos.length;
     }
 
-     let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
+    let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
          return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
-     });
+    });
+
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
        filteredArrayPhotos.push(tmpFiltered[i]);
