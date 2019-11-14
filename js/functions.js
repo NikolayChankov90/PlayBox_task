@@ -1,4 +1,3 @@
-window.onload=addPhotosClickListener;
 function getPhotos() {
     $.getJSON("./json/photos.json", function(data) {
         arrayPhotos = data;
@@ -23,47 +22,53 @@ function addPhotosClickListener(){
     images.click(function() {
 
         modalContent.attr('src', $(this).attr('src'));
-        modalContent.attr("alt", $(this).attr("alt"));
         modal.css('display', 'block');
         googleMap.css('display','none');
-        let currentImageTag = $(this).attr("data-category");
-
+        let currentImageTag = $(this).attr('data-category');
         EXIF.getData(this, function() {
             let latLonData,
-        latestTags = {
-            maker: EXIF.getTag(this, "Make"),
-            model: EXIF.getTag(this, "Model"),
-            speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
-            exposureTime: EXIF.getTag(this, "ExposureTime"),
-            fNumber: EXIF.getTag(this, "FNumber"),
-            focalLength: EXIF.getTag(this, "FocalLength"),
-            dateTaken: EXIF.getTag(this, "DateTime"),
-            extract: function () {
-                return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                    "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + " sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                    "Date taken: " + this.dateTaken + "\n" + "Tag: " + currentImageTag);
+                latestTags = {
+                    maker: EXIF.getTag(this, "Make"),
+                    model: EXIF.getTag(this, "Model"),
+                    speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
+                    exposureTime: EXIF.getTag(this, "ExposureTime"),
+                    fNumber: EXIF.getTag(this, "FNumber"),
+                    focalLength: EXIF.getTag(this, "FocalLength"),
+                    dateTaken: EXIF.getTag(this, "DateTime"),
+                    extract: function () {
+                        if (!this.exposureTime) {
+                            return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                                "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                                "Date taken: " + this.dateTaken + "\n" + "Tag:" +currentImageTag);
+                         }else {
+                            return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
+                                "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
+                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + currentImageTag)
+
+                         }
+                    }
+                };
+
+            result.text(latestTags.extract());
+            latLonData = getLatLonData(this.exifdata);
+
+            if (latLonData[0] && latLonData[1]) {
+                googleMap.css('display', 'block');
+                initMap(latLonData[0], latLonData[1]);
             }
-        };
-
-    result.text(latestTags.extract());
-
-    latLonData = getLatLonData(this.exifdata);
-
-    if (latLonData[0] && latLonData[1]) {
-        googleMap.css('display','block');
-        initMap(latLonData[0], latLonData[1]);
-    }
-})
-});
-
+        })
+    });
 }
 
 function renderImages(data) {
     loadingMsg(true);
     let images= "";
+    let filter = $("#inputValue").val().toLowerCase();
     data.forEach(function (item) {
         images += (`<div class='imgBox'><img id=${item.id} src=${item.location} data-category=${item.tag} /><p>${item.title}</p></div>`);
+        itemTags.push(item.tag);
     });
+    console.log(itemTags);
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
@@ -80,8 +85,7 @@ function ConvertDMSToDD(degrees, minutes, seconds, direction) {
 }
 
 function initMap(latFinal,lonFinal) {
-    let map = new google.maps.Map(
-        document.getElementById('map'),
+    let map = new google.maps.Map(document.getElementById('map'),
         {
             center: {lat: latFinal, lng: lonFinal},
             zoom: 12,
@@ -118,28 +122,32 @@ function getLatLonData(exifdata){
 let limit = 12;
 let arrayPhotos = [];
 
-function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази функция съм я преправил кажи речи цялата след като добавих search by tag в сравнение с предния commit 10.11.2019.
-    let filteredArrayPhotos = [];
-    let tagSign = "#";
-    const searchByTag = filter[0] === tagSign;
-    let searchCondition = searchByTag ? filter.slice(1) : filter;
+function getImageArray(filter, imgIndexStart, numberOfImages) {
+    let filteredArrayPhotos, searchByTag,regexTag,regexTitle;
+    filteredArrayPhotos = [];
+    searchByTag = filter[0]==='#';
+    regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, ''));
+    regexTitle = new RegExp(filter.replace(/,/g, '|'));
+
+    // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
+    // but if the word in the search field is on first position in the title or in the Tag , it does not match.Only if it is last.
 
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
 
-    let tmpFiltered = arrayPhotos.filter(
-        searchByTag ? image =>  image.tag.indexOf(searchCondition) >= 0 :
-            image => image.title.toLowerCase().indexOf(searchCondition) >= 0);
+    let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
+         return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
+    });
+
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
-        filteredArrayPhotos.push(tmpFiltered[i]);
-
+       filteredArrayPhotos.push(tmpFiltered[i]);
         if (filteredArrayPhotos.length >= numberOfImages) {
             break;
         }
     }
-    return filteredArrayPhotos;
+ return filteredArrayPhotos;
 }
 
 function getImagesCount() {
@@ -167,10 +175,10 @@ function goToPage(pageNum, count) {
 }
 
 function goToItem(filter,imgIndex,count) {
-     let imagesToDisplay =  getImageArray(filter, imgIndex, count);
-     const imgCount = getImagesCount();
-     RenderPagingView(imgCount);
-     renderImages(imagesToDisplay);
+    let imagesToDisplay =  getImageArray(filter, imgIndex, count);
+    const imgCount = getImagesCount();
+    RenderPagingView(imgCount);
+    renderImages(imagesToDisplay);
 
  }
 ///// END OF PAGINATION <<----
