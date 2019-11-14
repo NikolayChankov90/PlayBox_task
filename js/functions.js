@@ -142,35 +142,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {  /// Тази ф
     return filteredArrayPhotos;
 }
 
-/////////////////////////////////////////////////////////////////SEARCH BY MULTIPLE TAGS  , but pagination is not integrated:
-// function getImageArray(filter, imgIndexStart, numberOfImages) {
-//     let filteredArrayPhotos = [];
-//     let tagSign = "#";
-//     searchByTag = filter[0] === tagSign;
-//
-//     let searchCondition = searchByTag ? filter.slice(1) : filter;
-//
-//     let tmpFiltered = arrayPhotos.filter(searchFilter);
-//     console.log(tmpFiltered);
-//
-//     function searchFilter(image) {
-//         let tagPattern = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '') );
-//         let titlePattern = new RegExp(filter.replace(/,/g, '|'));
-//         return searchByTag ? tagPattern.test(image.tag) : titlePattern.test(image.title);
-//     }
-//
-//     for (let i = imgIndexStart; i < tmpFiltered.length ; i++) {
-//         filteredArrayPhotos.push(tmpFiltered[i]);
-//
-//         if (filteredArrayPhotos.length >= numberOfImages) {
-//             break;
-//         }
-//     }
-//     return filteredArrayPhotos;
-//
-// }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 function getImagesCount() {
     let filter = $("#inputValue").val().toLowerCase();
     const imgs = getImageArray(filter,0,-1);
