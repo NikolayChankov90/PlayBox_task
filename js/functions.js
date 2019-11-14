@@ -44,7 +44,6 @@ function addPhotosClickListener(){
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
                                 "Date taken: " + this.dateTaken + "\n" + "Tag:" + currentImg.tag);
-
                          }
                     }
                 };
@@ -67,6 +66,7 @@ function renderImages(data) {
     data.forEach(function (item) {
         images += (`<div class='imgBox'><img id=${item.id} alt=" " src=${item.location} /><p>${item.title}</p></div>`);
     });
+    console.log(itemTags);
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
@@ -140,7 +140,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
          return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
     });
-
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
        filteredArrayPhotos.push(tmpFiltered[i]);
