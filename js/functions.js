@@ -25,6 +25,8 @@ function addPhotosClickListener(){
         modalContent.attr('src', $(this).attr('src'));
         let imgId =$(this).attr('id');
         let currentImg = arrayPhotos.find(e => e.id === imgId);
+        console.log(typeof(currentImg));
+        let imgTag = currentImg.tag;
         EXIF.getData(this, function() {
             let latLonData,
                 latestTags = {
@@ -39,11 +41,11 @@ function addPhotosClickListener(){
                         if (!this.exposureTime) {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + currentImg.tag);
+                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + imgTag);
                          }else {
                             return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
                                 "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + currentImg.tag);
+                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + imgTag);
                          }
                     }
                 };
@@ -126,7 +128,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     searchByTag = filter[0]==='#';
     regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')+'$');
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
-
+    //(filter.replace(/,/g, '|').replace(/#/g, '')) -- IS NOT case sensitive.
     // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
     // but if the word in the search field is on first position in the title or in the Tag , it does not match.Only if it is last.
     // i have tried with :
