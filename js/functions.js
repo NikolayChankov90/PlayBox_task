@@ -118,15 +118,14 @@ function getLatLonData(exifdata){
 }
 
 // Pagination ---->>>>>>
-
 let limit = 12;
 let arrayPhotos = [];
 
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let filteredArrayPhotos, searchByTag,regexTag,regexTitle;
     filteredArrayPhotos = [];
-    searchByTag = filter[0]==='#';
-    regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')+'$');
+    searchByTag = filter[0] === "#";
+    regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/, ''));
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
     //(filter.replace(/,/g, '|').replace(/#/g, '')) -- IS NOT case sensitive.
     // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
