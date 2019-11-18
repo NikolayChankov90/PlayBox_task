@@ -23,13 +23,25 @@ function addPhotosClickListener(){
         modal.css('display', 'block');
         googleMap.css('display','none');
         modalContent.attr('src', $(this).attr('src'));
-        modalContent.css("image-orientation", "from-image");
+        modalContent.css("image-orientation", "from-image");   /// added CSS property for Firefox Image orientation
         let imgId =$(this).attr('id');
         let currentImg = arrayPhotos.find(e => e.id === imgId);
         console.log(typeof(currentImg));
         let imgTag = currentImg.tag;
+        let orientation;
         EXIF.getData(this, function() {
             let latLonData,
+            //   orientation = EXIF.getTag(this, "Orientation"){
+            //      if(orientation === 3) {
+            //          modalContent.css("transform", "rotate(180deg)");
+            //      }
+            //      if(orientation === 6) {
+            //          modalContent.css("transform", "rotate(90deg)");
+            //
+            //      }
+            //      if(orientation === 8) {
+            //          modalContent.css("transform", "rotate(270deg)");
+            //      }
                 latestTags = {
                     maker: EXIF.getTag(this, "Make"),
                     model: EXIF.getTag(this, "Model"),
@@ -126,7 +138,7 @@ let arrayPhotos = [];
 
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let filteredArrayPhotos,searchByTag,regexTag,regexTitle;
-    filteredArrayPhotos = [];
+    filteredArrayPhotos =[];
     searchByTag = filter[0] === "#";
     regexTag = new RegExp(filter.replace(/#/g, '').replace(/,/, '|'));
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
@@ -135,8 +147,8 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
         numberOfImages = arrayPhotos.length;
     }
 
-    let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
-        return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
+    let tmpFiltered = arrayPhotos.filter(function searchFilter(image){
+        return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase())
     });
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
@@ -145,8 +157,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
             break;
         }
     }
-
- return filteredArrayPhotos;
+    return filteredArrayPhotos;
 
 }
 

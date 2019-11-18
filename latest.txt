@@ -1,0 +1,35 @@
+само че трябва да правиш проверка 
+     if(currentImg )
+    прави едикакво си
+     или 
+      if(!currentImg )
+        return
+
+1. Погледни по-горе нещата и прецени кое как да оправиш по кода с цел оптимизация
+extract: function () {
+                        console.warn(this.exposureTime);
+                        return (
+                            "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
+                            "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
+                            "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
+                            "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
+                            "F-Stop: " + ((this.fNumber) ? "f/"+this.fNumber : 'N/A') + "\n" +
+                            "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
+                            "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
+                            "Tag:" + (imgTag ? imgTag : 'N/A')
+                        );
+                    }
+
+
+let imagesToDisplay =  getImageArray(filter, imgIndex, count);
+когато минаваш тук може да си зададеш в някаква глобална променлива колко items имаш след филтрацията, преди да вземеш снимките за текущата страница и няма да има нужда от второ обикаляне на масива, за да вземеш 
+const imgCount = getImagesCount();
+
+
+2. Погледни търсене по тагове защо не работи както трябва с един таг - по-горе писах за red и car
+2. Търсене по повече от един tag
+CSS:
+1. Aspect ratio на снимките в страницата
+2. Aspect ratio на снимката в modal-а
+Other:
+1. Map-a не се вижда нито в Firefox нито в Chrome, нито в малък вид, нито fullscreen. Преди поне в FF работеше
