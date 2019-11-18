@@ -23,6 +23,7 @@ function addPhotosClickListener(){
         modal.css('display', 'block');
         googleMap.css('display','none');
         modalContent.attr('src', $(this).attr('src'));
+        modalContent.css("image-orientation", "from-image");
         let imgId =$(this).attr('id');
         let currentImg = arrayPhotos.find(e => e.id === imgId);
         console.log(typeof(currentImg));
