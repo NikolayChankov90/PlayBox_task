@@ -7,6 +7,7 @@
   height: 400px;
   box-sizing: border-box;
   object-fit: inherit;
+  image-orientation: from-image;
 }
 
 #imageContainer p{
@@ -19,6 +20,7 @@
   float: left;
   width: 33.33%;
 }
+
 
 #myModal {
   display: none; 

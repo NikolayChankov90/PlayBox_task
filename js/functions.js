@@ -38,20 +38,23 @@ function addPhotosClickListener(){
                     focalLength: EXIF.getTag(this, "FocalLength"),
                     dateTaken: EXIF.getTag(this, "DateTime"),
                     extract: function () {
-                        if (!this.exposureTime) {
-                            return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                                "Exposure time: " + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + imgTag);
-                         }else {
-                            return ("Camera maker: " + this.maker + "\n" + "Camera model: " + this.model + "\n" + "ISO: " + this.speedRatings + "\n" +
-                                "Exposure time: " + this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" + "\n" + "F-Stop: f/ " + this.fNumber + "\n" + "Focal Length: " + this.focalLength + " mm" + "\n" +
-                                "Date taken: " + this.dateTaken + "\n" + "Tag:" + imgTag);
-                         }
+                        return (
+                            "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
+                            "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
+                            "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
+                            "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
+                            "F-Stop: " + ((this.fNumber) ? "f/"+this.fNumber : 'N/A') + "\n" +
+                            "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
+                            "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
+                            "Tag:" + (imgTag ? imgTag : 'N/A')
+                        );
                     }
+
                 };
 
             result.text(latestTags.extract());
             latLonData = getLatLonData(this.exifdata);
+            console.warn(latLonData);
 
             if (latLonData[0] && latLonData[1]) {
                 googleMap.css('display', 'block');
@@ -68,7 +71,6 @@ function renderImages(data) {
     data.forEach(function (item) {
         images += (`<div class='imgBox'><img id=${item.id} alt=" " src=${item.location} /><p>${item.title}</p></div>`);
     });
-    console.log(itemTags);
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
@@ -96,9 +98,9 @@ function initMap(latFinal,lonFinal) {
 
 function getGPSFormatedData(pos, ref){
     return ConvertDMSToDD(
-        parseFloat(pos[0].numerator),
+        parseInt(pos[0].numerator),
         parseFloat(pos[1].numerator),
-        parseInt(pos[2]),
+        parseFloat(pos[2]),
         ref
     );
 }
@@ -122,24 +124,18 @@ let limit = 12;
 let arrayPhotos = [];
 
 function getImageArray(filter, imgIndexStart, numberOfImages) {
-    let filteredArrayPhotos, searchByTag,regexTag,regexTitle;
+    let filteredArrayPhotos,searchByTag,regexTag,regexTitle;
     filteredArrayPhotos = [];
     searchByTag = filter[0] === "#";
-    regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/, ''));
+    regexTag = new RegExp(filter.replace(/#/g, '').replace(/,/, '|'));
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
-    //(filter.replace(/,/g, '|').replace(/#/g, '')) -- IS NOT case sensitive.
-    // (filter.replace(/,/g, '|').replace(/#/g, '')+ '$') helps  with the multiple search and to not have any other images that contain partially the word in the search field ,
-    // but if the word in the search field is on first position in the title or in the Tag , it does not match.Only if it is last.
-    // i have tried with :
-    // regexTag = new RegExp('^'+filter.replace(/,/g, '|').replace(/#/g, '')+'$');
-    // regexTag = new RegExp(filter.replace(/,/g, '|').replace(/#/g, '')+'$');
-    //regexTag = new RegExp('^'+filter.replace(/,/g, '|').replace(/#/g, ''));
+
     if (numberOfImages < 1 ){
         numberOfImages = arrayPhotos.length;
     }
 
     let tmpFiltered = arrayPhotos.filter(function searchFilter(image) {
-         return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
+        return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
     });
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
@@ -148,7 +144,9 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
             break;
         }
     }
+
  return filteredArrayPhotos;
+
 }
 
 function getImagesCount() {

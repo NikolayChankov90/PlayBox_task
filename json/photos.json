@@ -75,7 +75,7 @@
     "location": "Photos/20150911_173710.jpg",
     "title": "Drinking Sign",
     "id": "image_id_013",
-    "tag": []
+    "tag": ["alcohol"]
   },
   {
     "location": "Photos/20180505_141706.jpg",
@@ -128,8 +128,7 @@
   {
     "location": "Photos/20190209_113258.jpg",
     "title": "Birds on a wire",
-    "id": "image_id_022",
-    "tag": []
+    "id": "image_id_022"
   },
   {
     "location": "Photos/20190223_082505.jpg",
