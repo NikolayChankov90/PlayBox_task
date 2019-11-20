@@ -10,6 +10,10 @@
     <title>Gallery</title>
 </head>
 <body>
+<div>
+    <div id="makeAndModel">
+    </div>
+</div>
 <div class="searchButton">
     <input type="text" id="inputValue"  data-toggle="tooltip"  placeholder="Search by name or #tag">
     <button id="searchBtn" onclick="goToPage(0,limit)" type="button">Search</button>
@@ -25,10 +29,10 @@
     <div id="map"></div>
     <span id="closeDlg" class="close">Close</span>
 </div>
+<script src="js/exif.js"></script>
 <script src="js/functions.js"></script>
 <script src="js/scripts.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMDEwu-TGLjugEIRUHlZUHQUGCvZxOo1Y&libraries=places&callback=initMap"></script>
-<script src="js/exif.js"></script>
 <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
 
 </body>

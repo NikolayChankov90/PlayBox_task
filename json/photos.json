@@ -1,39 +1,39 @@
 [
   {
-    "location": "Photos/_DSC0150.jpg",
-    "title": "Hotel",
+    "location": "Photos/20181231_132106.jpg",
+    "title": "Waterfall",
     "id": "image_id_001",
-    "tag": [ "building", "city", "hotel"]
+    "tag": [ "nature" , "waterfall"]
   },
   {
-    "location": "Photos/_DSC0226.jpg",
-    "title": "Fruit Tree",
-    "id": "Fruit_Tree",
-    "tag": [ "fruit", "palm"]
+    "location": "Photos/20180505_141706.jpg",
+    "title": "Upside-down look",
+    "id": "image_id_002",
+    "tag": [ "church"]
   },
   {
-    "location": "Photos/_DSC0442.jpg",
-    "title": "Holy Trinity Church",
+    "location": "Photos/20180707_172157.jpg",
+    "title": "Afternoon sea sun",
     "id": "image_id_003",
-    "tag": [ "building"  , "history"]
+    "tag": [ "sea", "sun"]
   },
   {
-    "location": "Photos/_DSC6927-Е.jpg" ,
-    "title": "The Moon",
+    "location": "Photos/20180709_194424.jpg",
+    "title": "Multi-racial dog",
     "id": "image_id_004",
-    "tag": [ "moon", "cosmos"]
+    "tag": [ "dog", "animal"]
   },
   {
-    "location": "Photos/_DSC7679.jpg",
-    "title": "Sunset over a lake",
+    "location": "Photos/20190306_134827.jpg",
+    "title": "Sky over England",
     "id": "image_id_005",
-    "tag": [ "nature" , "lake" , "sunset"]
+    "tag": [ "sky" , "clouds"]
   },
   {
-    "location": "Photos/100_6118.jpg",
-    "title": "London Bus",
+    "location": "Photos/20150911_173710.jpg",
+    "title": "Drinking Sign",
     "id": "image_id_006",
-    "tag": [ "bus" , "red" , "people"]
+    "tag": ["alcohol"]
   },
   {
     "location": "Photos/100_6149.jpg",
@@ -72,16 +72,16 @@
     "tag": [ "car" , "red"]
   },
   {
-    "location": "Photos/20150911_173710.jpg",
-    "title": "Drinking Sign",
+    "location": "Photos/100_6118.jpg",
+    "title": "London Bus",
     "id": "image_id_013",
-    "tag": ["alcohol"]
+    "tag": [ "bus" , "red" , "people"]
   },
   {
-    "location": "Photos/20180505_141706.jpg",
-    "title": "Upside-down look",
+    "location": "Photos/_DSC0226.jpg",
+    "title": "Fruit Tree",
     "id": "image_id_014",
-    "tag": [ "church"]
+    "tag": [ "fruit", "palm"]
   },
   {
     "location": "Photos/20180608_203614.jpg",
@@ -90,16 +90,16 @@
     "tag": [ "sunset" , "lake"]
   },
   {
-    "location": "Photos/20180707_172157.jpg",
-    "title": "Afternoon sea sun",
+    "location": "Photos/_DSC0442.jpg",
+    "title": "Holy Trinity Church",
     "id": "image_id_016",
-    "tag": [ "sea", "sun"]
+    "tag": [ "building"  , "history"]
   },
   {
-    "location": "Photos/20180709_194424.jpg",
-    "title": "Multi-racial dog",
+    "location": "Photos/_DSC6927-Е.jpg" ,
+    "title": "The Moon",
     "id": "image_id_017",
-    "tag": [ "dog", "animal"]
+    "tag": [ "moon", "cosmos"]
   },
   {
     "location": "Photos/20180712_120405.jpg",
@@ -114,10 +114,10 @@
     "tag": [ "horse" , "animal"]
   },
   {
-    "location": "Photos/20181231_132106.jpg",
-    "title": "Waterfall",
+    "location": "Photos/_DSC0150.jpg",
+    "title": "Hotel",
     "id": "image_id_020",
-    "tag": [ "nature" , "waterfall"]
+    "tag": [ "building", "city", "hotel"]
   },
   {
     "location": "Photos/20190106_170221.jpg",
@@ -137,10 +137,10 @@
     "tag": [ "road" , "winter"]
   },
   {
-    "location": "Photos/20190306_134827.jpg",
-    "title": "Sky over England",
+    "location": "Photos/_DSC7679.jpg",
+    "title": "Sunset over a lake",
     "id": "image_id_024",
-    "tag": [ "sky" , "clouds"]
+    "tag": [ "nature" , "lake" , "sunset"]
   },
   {
     "location": "Photos/DJI_0292-Pano.jpg",

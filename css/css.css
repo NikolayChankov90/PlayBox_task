@@ -10,10 +10,6 @@
   object-fit: inherit;
 }
 
-.portrait {
-
-}
-
 #imageContainer p {
   color: black;
   font-size: 20px;
@@ -38,6 +34,7 @@
   overflow: auto;
   background-color: rgba(37, 35, 35, 0.9);
   column-count: 2;
+  image-orientation: from-image;
 }
 
 #exifResult {
@@ -133,6 +130,9 @@
 .clickPageNumber:hover {
   color: black;
   opacity: 0.3;
+}
+.rotate0deg{
+  transform: rotate(0deg)
 }
 
 .rotate90{

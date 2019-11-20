@@ -20,15 +20,16 @@ function loadingMsg(doShow, message){
 function addPhotosClickListener(){
     let images = $(".imgBox img");
     images.click(function() {
-        console.log(this.naturalWidth);
-        console.log(this.naturalHeight);
         modal.css('display', 'block');
         googleMap.css('display','none');
         modalContent.attr('src', $(this).attr('src'));
         let imgId =$(this).attr('id');
+        let orientation;
         let currentImg = arrayPhotos.find(e => e.id === imgId);
         let imgTag = currentImg.tag;
         EXIF.getData(this, function() {
+            orientation = EXIF.getTag(this,"Orientation");
+            console.log(orientation);
             let latLonData,
                 latestTags = {
                     maker: EXIF.getTag(this, "Make"),
@@ -65,36 +66,50 @@ function addPhotosClickListener(){
     });
 }
 
+
 function renderImages(data) {
     loadingMsg(true);
-    let images= "";
-    let orientation;
-    let filter = $("#inputValue").val().toLowerCase();
-    let jsonImage = data.map((el) => { return {...{orientation: 'portrait'},  ...el}; });
-    // jsonImage.forEach( function (data) {
-    //     orientation = EXIF.getTag(data,"Orientation");
-    //     if(orientation === 3){
-    //
-    //     }
-    //     if(orientation === 6){
-    //
-    //     }
-    //
-    //     if(orientation === 8){
-    //
-    //     }
-    //
-    //
-    // });
+    let images ='';
 
-    jsonImage.forEach(function (item) {
-        images += (`<div class='imgBox'><img id=${item.id} alt=" " style=""  src=${item.location} /><p>${item.title}</p></div>`);
+    data.forEach(function (item) {
+        images += (`<div class='imgBox'><img id=${item.id} alt=" "  src="Photos/loading_indicator.gif" /><p>${item.title}</p></div>`);
     });
     imageContainer.html(images);
     addPhotosClickListener();
     loadingMsg();
+
+    data.forEach(function (item) {
+        let imgOrientation;
+        item.src = item.location
+        EXIF.getData(item, function () {
+            imgOrientation = EXIF.getTag(item, "Orientation");
+            let image = $(`#${item.id}`);
+            image.attr("src", item.src);
+            switch (imgOrientation) {
+                case 3:
+                    image.addClass("rotate180");
+                    break;
+                case 6:
+                    image.addClass("rotate90");
+                    break;
+                case 8:
+                    image.addClass("rotate270");
+                    break;
+                default:
+                // code block
+            }
+        });
+    })
 }
 
+//         EXIF.getData(img[i], function () {
+//             orientation = (EXIF.getTag(this, "Orientation"));
+//             console.log(orientation);
+
+//
+//         });
+//     }
+// }
 // Function for converting Degrees,Minutes,Seconds, to DecimalData ---->>>>>>
 
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
@@ -207,9 +222,16 @@ function goToPage(pageNum, count) {
 
 function goToItem(filter,imgIndex,count) {
     let imagesToDisplay =  getImageArray(filter, imgIndex, count);
+    imagesToDisplay.forEach(function (el) {
+
+    });
     const imgCount = getImagesCount();
     RenderPagingView(imgCount);
     renderImages(imagesToDisplay);
 
  }
+
+
+
+
 ///// END OF PAGINATION <<----

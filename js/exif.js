@@ -1047,12 +1047,12 @@
     }
 
     EXIF.readFromBinaryFile = function(file) {
-        return findEXIFinJPEG(file);
-    }
+    return findEXIFinJPEG(file);
+}
 
-    if (typeof define === 'function' && define.amd) {
-        define('exif-js', [], function() {
-            return EXIF;
-        });
-    }
+if (typeof define === 'function' && define.amd) {
+    define('exif-js', [], function() {
+        return EXIF;
+    });
+}
 }.call(this));
