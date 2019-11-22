@@ -16,20 +16,23 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 // Modal Dialog ------>>>>>>
-function addPhotosClickListener(){
+debugger
+let imgTag;
+function addPhotosClickListener() {
     let images = $(".imgBox img");
-    images.click(function() {
+    images.click(function () {
         modal.css('display', 'none');
-        googleMap.css('display','none');
+        googleMap.css('display', 'none');
         modalContent.attr('src', $(this).attr('src'));
-        let orientation, latLonData,width;
-        EXIF.getData(this, function() {
+        let orientation, latLonData, width;
+        EXIF.getData(this, function () {
             modalContent.attr('src', $(this).attr('src'));
-            let imgId =$(this).attr('id');
+            let imgId = $(this).attr('id');
             let currentImg = arrayPhotos.find(e => e.id === imgId);
             let imgTag = currentImg.tag;
-            orientation = EXIF.getTag(this,"Orientation");
-            width = EXIF.getTag(this,"ImageWidth");
+            let regex = /\bTag:\K\w+/g;
+            debugger;
+            orientation = EXIF.getTag(this, "Orientation");
             switch (orientation) {
                 case 1:
                     break;
@@ -37,47 +40,50 @@ function addPhotosClickListener(){
                     modalContent.addClass("rotate180");
                     break;
                 case 6:
-                    modalContent.addClass("rotate90 modal-rotated90");
-                    result.addClass("exifResult-rotated90");
+                    modalContent.addClass("rotate90 modal-rotated90 ");
                     break;
                 case 8:
                     modalContent.addClass("rotate270 modal-rotated270");
                     break;
             }
-               let latestTags = {
-                    maker: EXIF.getTag(this, "Make"),
-                    model: EXIF.getTag(this, "Model"),
-                    speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
-                    exposureTime: EXIF.getTag(this, "ExposureTime"),
-                    fNumber: EXIF.getTag(this, "FNumber"),
-                    focalLength: EXIF.getTag(this, "FocalLength"),
-                    dateTaken: EXIF.getTag(this, "DateTime"),
-                    extract: function () {
-                        return (
-                            "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
-                            "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
-                            "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
-                            "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
-                            "F-Stop: " + ((this.fNumber) ? "f/"+this.fNumber : 'N/A') + "\n" +
-                            "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
-                            "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
-                            "Tag:" + (imgTag ? imgTag : 'N/A')
-                        );
-                    }
+            let latestTags = {
+                maker: EXIF.getTag(this, "Make"),
+                model: EXIF.getTag(this, "Model"),
+                speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
+                exposureTime: EXIF.getTag(this, "ExposureTime"),
+                fNumber: EXIF.getTag(this, "FNumber"),
+                focalLength: EXIF.getTag(this, "FocalLength"),
+                dateTaken: EXIF.getTag(this, "DateTime"),
+                extract: function () {
+                    return (
+                        "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
+                        "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
+                        "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
+                        "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
+                        "F-Stop: " + ((this.fNumber) ? "f/" + this.fNumber : 'N/A') + "\n" +
+                        "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
+                        "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
+                        "Tag:" + ((imgTag) ? imgTag : "N/A")
+                    );
+                }
+            };
 
-                };
             modal.css('display', 'block');
             result.text(latestTags.extract());
-            latLonData = getLatLonData(this.exifdata);
-            console.warn(latLonData);
 
+            latLonData = getLatLonData(this.exifdata);
             if (latLonData[0] && latLonData[1]) {
                 googleMap.css('display', 'block');
                 initMap(latLonData[0], latLonData[1]);
             }
+            console.log(imgTag);
+            // for(let i =0 ; i <imgTag.length ; i++){
+            //
+            // }
         })
     });
 }
+
 
 function renderImages(data) {
     loadingMsg(true);
@@ -89,7 +95,7 @@ function renderImages(data) {
     addPhotosClickListener();
     data.forEach(function (item) {
         let imgOrientation;
-        item.src = item.location
+        item.src = item.location;
         EXIF.getData(item, function () {
             imgOrientation = EXIF.getTag(item, "Orientation");
             let image = $(`#${item.id}`);
@@ -113,7 +119,9 @@ function renderImages(data) {
 }
 
 // Function for converting Degrees,Minutes,Seconds, to DecimalData ---->>>>>>
-
+/**
+ * @return {number}
+ */
 function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     var dd = degrees + (minutes/60) + (seconds/3600);
     if (direction === "S" || direction === "W") {
@@ -161,7 +169,7 @@ let arrayPhotos = [];
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let searchByTag,regexTag,regexTitle,tmpFiltered;
     searchByTag =filter[0] === "#";
-    regexTag = new RegExp(filter.replace(/#/g, '').replace(/,/, '|').match(/\w+/g));
+    regexTag = new RegExp(filter.replace(/#/g, '').replace(/,/, '|'));
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
     let filteredArrayPhotos=[];
 
