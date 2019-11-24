@@ -63,7 +63,7 @@ function addPhotosClickListener() {
                         "F-Stop: " + ((this.fNumber) ? "f/" + this.fNumber : 'N/A') + "\n" +
                         "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
                         "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
-                        "Tag:" + ((imgTag) ? imgTag : "N/A")
+                        "Tag:" + ((imgTag) ? '#'+imgTag : "N/A")
                     );
                 }
             };
