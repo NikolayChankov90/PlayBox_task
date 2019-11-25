@@ -30,6 +30,7 @@ body {
   width: 31.33%;
   border-style: groove;
   border-color: dimgrey;
+  overflow:hidden;
 }
 
 #myModal {

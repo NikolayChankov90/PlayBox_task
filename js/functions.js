@@ -17,7 +17,6 @@ function loadingMsg(doShow, message){
 }
 // Modal Dialog ------>>>>>>
 let imgTag,link;
-debugger;
 function addPhotosClickListener() {
     let images = $(".imgBox img");
     images.click(function () {
@@ -31,14 +30,10 @@ function addPhotosClickListener() {
             let currentImg = arrayPhotos.find(e => e.id === imgId);
             let imgTag = currentImg.tag;
             let imgTags="";
-            let filter= "";
-            let newFilter= "";
-            debugger;
             if(imgTag){
                 for ( let i = 0 ; i< imgTag.length ; i ++) {
-                    imgTags += (`<a href="" class="link">#${imgTag[i]} </a>`);
+                    imgTags += (`<a href="" onclick="searchByTag()" class="link">#${imgTag[i]} </a>`);
                 }
-
             }
             orientation = EXIF.getTag(this, "Orientation");
             switch (orientation) {
@@ -86,7 +81,15 @@ function addPhotosClickListener() {
     });
 
 }
-
+let filter = $('#inputValue').val().toLowerCase();
+function searchByTag (){
+    let tagLink = $(".link");
+    tagLink.click(function () {
+        filter.html($(this).html());
+        
+    });
+}
+debugger;
 function renderImages(data) {
     loadingMsg(true);
     let images ='';
@@ -214,7 +217,7 @@ function getImagesCount() {
 }
 
 function RenderPagingView(itemsCount) {
-    totalPages = Math.ceil(itemsCount / limit);
+    let totalPages = Math.ceil(itemsCount / limit);
     let paginationContainer = $("#pagination");
     let intDom ="";
     for (let i = 0; i < totalPages; i++) {
