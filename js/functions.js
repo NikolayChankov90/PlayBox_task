@@ -36,8 +36,9 @@ function addPhotosClickListener() {
             debugger;
             if(imgTag){
                 for ( let i = 0 ; i< imgTag.length ; i ++) {
-                    imgTags += (`<a href="" onclick="goToPage()" class="link">#${imgTag[i]} </a>`);
+                    imgTags += (`<a href="" class="link">#${imgTag[i]} </a>`);
                 }
+
             }
             orientation = EXIF.getTag(this, "Orientation");
             switch (orientation) {
