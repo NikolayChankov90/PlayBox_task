@@ -16,8 +16,8 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 // Modal Dialog ------>>>>>>
-debugger
-let imgTag;
+let imgTag,link;
+debugger;
 function addPhotosClickListener() {
     let images = $(".imgBox img");
     images.click(function () {
@@ -30,8 +30,15 @@ function addPhotosClickListener() {
             let imgId = $(this).attr('id');
             let currentImg = arrayPhotos.find(e => e.id === imgId);
             let imgTag = currentImg.tag;
-            let regex = /\bTag:\K\w+/g;
+            let imgTags="";
+            let filter= "";
+            let newFilter= "";
             debugger;
+            if(imgTag){
+                for ( let i = 0 ; i< imgTag.length ; i ++) {
+                    imgTags += (`<a href="" onclick="goToPage()" class="link">#${imgTag[i]} </a>`);
+                }
+            }
             orientation = EXIF.getTag(this, "Orientation");
             switch (orientation) {
                 case 1:
@@ -63,27 +70,21 @@ function addPhotosClickListener() {
                         "F-Stop: " + ((this.fNumber) ? "f/" + this.fNumber : 'N/A') + "\n" +
                         "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
                         "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
-                        "Tag:" + ((imgTag) ? '#'+imgTag : "N/A")
+                        "Tag:" + ((imgTags ) ? imgTags : "N/A" )
                     );
                 }
             };
-
             modal.css('display', 'block');
-            result.text(latestTags.extract());
-
+            result.html(latestTags.extract());
             latLonData = getLatLonData(this.exifdata);
             if (latLonData[0] && latLonData[1]) {
                 googleMap.css('display', 'block');
                 initMap(latLonData[0], latLonData[1]);
             }
-            console.log(imgTag);
-            // for(let i =0 ; i <imgTag.length ; i++){
-            //
-            // }
         })
     });
-}
 
+}
 
 function renderImages(data) {
     loadingMsg(true);
@@ -92,7 +93,6 @@ function renderImages(data) {
         images += (`<div class='imgBox'><img id=${item.id} alt=" "  src=Photos/loading_indicator.gif /><p>${item.title}</p></div>`);
     });
     imageContainer.html(images);
-    addPhotosClickListener();
     data.forEach(function (item) {
         let imgOrientation;
         item.src = item.location;
@@ -115,6 +115,7 @@ function renderImages(data) {
             }
         });
     });
+    addPhotosClickListener();
     loadingMsg();
 }
 
@@ -168,8 +169,8 @@ let arrayPhotos = [];
 
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let searchByTag,regexTag,regexTitle,tmpFiltered;
-    searchByTag =filter[0] === "#";
-    regexTag = new RegExp(filter.replace(/#/g, '').replace(/,/, '|'));
+    searchByTag = filter[0] === "#";
+    regexTag = new RegExp( filter.replace(/#/g, '').replace(/,/, '|') );
     regexTitle = new RegExp(filter.replace(/,/g, '|'));
     let filteredArrayPhotos=[];
 
@@ -222,10 +223,9 @@ function RenderPagingView(itemsCount) {
 }
 
 function goToPage(pageNum, count) {
-    let filter = $("#inputValue").val().toLowerCase();
+    let filter = $('#inputValue').val().toLowerCase();
     let imgIndex = pageNum * count;
     goToItem(filter,imgIndex, count);
-
 }
 
 function goToItem(filter,imgIndex,count) {
@@ -234,5 +234,6 @@ function goToItem(filter,imgIndex,count) {
     RenderPagingView(imgCount);
     renderImages(imagesToDisplay);
 }
+
 
 ///// END OF PAGINATION <<----

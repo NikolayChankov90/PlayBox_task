@@ -138,14 +138,13 @@ body {
   color: black;
   opacity: 0.3;
 }
+
 .rotate0deg{
   transform: rotate(0deg)
 }
-
 .rotate90{
   transform: rotate(90deg);
 }
-
 .rotate180{
   transform: rotate(180deg);
 }
@@ -153,13 +152,6 @@ body {
   transform: rotate(270deg);
 }
 
-.modal-rotated90{
-  height: 66.5%;
-  display: block;
-  width: auto;
-  margin-left: 38.5%;
-  margin-top: 11%
-}
 .modal-rotated270{
   height:70%;
   width: 110%;
@@ -179,4 +171,26 @@ body {
   }
 }
 
+#link:hover{
+  color: red;
+}
 
+@media only screen and (max-width: 1920px) {
+  .modal-rotated90{
+    height: 66.5%;
+    display: block;
+    width: auto;
+    margin-left: 28.5%;
+    margin-top: 12%
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+  .modal-rotated90{
+    height: 66.5%;
+    display: block;
+    width: auto;
+    margin-left: 28.5%;
+    margin-top: 12%
+  }
+}

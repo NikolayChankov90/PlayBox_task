@@ -6,7 +6,6 @@ const modal = $('#myModal'),
     loading = $('#loading');
 
 let imageContainer = $('#imageContainer');
-
 getPhotos();
 addPhotosClickListener();
 
