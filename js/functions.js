@@ -19,77 +19,71 @@ function loadingMsg(doShow, message){
 let imgTag,link;
 function addPhotosClickListener() {
     let images = $(".imgBox img");
-    images.click(function () {
-        modal.css('display', 'none');
-        googleMap.css('display', 'none');
-        modalContent.attr('src', $(this).attr('src'));
-        let orientation, latLonData, width;
-        EXIF.getData(this, function () {
+    if(images) {
+        images.click(function () {
+            modal.css('display', 'none');
+            googleMap.css('display', 'none');
             modalContent.attr('src', $(this).attr('src'));
-            let imgId = $(this).attr('id');
-            let currentImg = arrayPhotos.find(e => e.id === imgId);
-            let imgTag = currentImg.tag;
-            let imgTags="";
-            if(imgTag){
-                for ( let i = 0 ; i< imgTag.length ; i ++) {
-                    imgTags += (`<a href="" onclick="searchByTag()" class="link">#${imgTag[i]} </a>`);
+            let orientation, latLonData, width;
+            EXIF.getData(this, function () {
+                modalContent.attr('src', $(this).attr('src'));
+                let imgId = $(this).attr('id');
+                let currentImg = arrayPhotos.find(e => e.id === imgId);
+                let imgTag = currentImg.tag;
+                let imgTags = "";
+                if (imgTag) {
+                    for (let i = 0; i < imgTag.length; i++) {
+                        imgTags += (`<a  class="link">${imgTag[i]}  </a>`);
+                    }
                 }
-            }
-            orientation = EXIF.getTag(this, "Orientation");
-            switch (orientation) {
-                case 1:
-                    break;
-                case 3:
-                    modalContent.addClass("rotate180");
-                    break;
-                case 6:
-                    modalContent.addClass("rotate90 modal-rotated90 ");
-                    break;
-                case 8:
-                    modalContent.addClass("rotate270 modal-rotated270");
-                    break;
-            }
-            let latestTags = {
-                maker: EXIF.getTag(this, "Make"),
-                model: EXIF.getTag(this, "Model"),
-                speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
-                exposureTime: EXIF.getTag(this, "ExposureTime"),
-                fNumber: EXIF.getTag(this, "FNumber"),
-                focalLength: EXIF.getTag(this, "FocalLength"),
-                dateTaken: EXIF.getTag(this, "DateTime"),
-                extract: function () {
-                    return (
-                        "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
-                        "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
-                        "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
-                        "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
-                        "F-Stop: " + ((this.fNumber) ? "f/" + this.fNumber : 'N/A') + "\n" +
-                        "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
-                        "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
-                        "Tag:" + ((imgTags ) ? imgTags : "N/A" )
-                    );
+                orientation = EXIF.getTag(this, "Orientation");
+                switch (orientation) {
+                    case 1:
+                        break;
+                    case 3:
+                        modalContent.addClass("rotate180");
+                        break;
+                    case 6:
+                        modalContent.addClass("rotate90 modal-rotated90 ");
+                        break;
+                    case 8:
+                        modalContent.addClass("rotate270");
+                        break;
                 }
-            };
-            modal.css('display', 'block');
-            result.html(latestTags.extract());
-            latLonData = getLatLonData(this.exifdata);
-            if (latLonData[0] && latLonData[1]) {
-                googleMap.css('display', 'block');
-                initMap(latLonData[0], latLonData[1]);
-            }
-        })
-    });
+                let latestTags = {
+                    maker: EXIF.getTag(this, "Make"),
+                    model: EXIF.getTag(this, "Model"),
+                    speedRatings: EXIF.getTag(this, "ISOSpeedRatings"),
+                    exposureTime: EXIF.getTag(this, "ExposureTime"),
+                    fNumber: EXIF.getTag(this, "FNumber"),
+                    focalLength: EXIF.getTag(this, "FocalLength"),
+                    dateTaken: EXIF.getTag(this, "DateTime"),
+                    extract: function () {
+                        return (
+                            "Camera maker: " + ((this.maker) ? this.maker : 'N/A') + "\n" +
+                            "Camera model: " + ((this.model) ? this.model : 'N/A') + "\n" +
+                            "ISO: " + ((this.speedRatings) ? this.speedRatings : 'N/A') + "\n" +
+                            "Exposure time: " + ((this.exposureTime) ? this.exposureTime.numerator + "/" + this.exposureTime.denominator + "sec" : 'N/A') + "\n" +
+                            "F-Stop: " + ((this.fNumber) ? "f/" + this.fNumber : 'N/A') + "\n" +
+                            "Focal Length: " + ((this.focalLength) ? this.focalLength + " mm" : 'N/A') + "\n" +
+                            "Date taken: " + ((this.dateTaken) ? this.dateTaken : 'N/A') + "\n" +
+                            "Tags: " + ((imgTags) ? imgTags : "N/A")
+                        );
+                    }
+                };
+                modal.css('display', 'block');
+                result.html(latestTags.extract());
+                filteredSearchByTagClicked();
+                latLonData = getLatLonData(this.exifdata);
+                if (latLonData[0] && latLonData[1]) {
+                    googleMap.css('display', 'block');
+                    initMap(latLonData[0], latLonData[1]);
+                }
+            });
+        });
+    }
+}
 
-}
-let filter = $('#inputValue').val().toLowerCase();
-function searchByTag (){
-    let tagLink = $(".link");
-    tagLink.click(function () {
-        filter.html($(this).html());
-        
-    });
-}
-debugger;
 function renderImages(data) {
     loadingMsg(true);
     let images ='';
@@ -134,9 +128,9 @@ function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     }
     return dd;
 }
-
+var map;
 function initMap(latFinal,lonFinal) {
-    let map = new google.maps.Map(document.getElementById('map'),
+     map = new google.maps.Map(document.getElementById('map'),
         {
             center: {lat: latFinal, lng: lonFinal},
             zoom: 12,
@@ -155,7 +149,7 @@ function getGPSFormatedData(pos, ref){
 
 function getLatLonData(exifdata){
     let lat = null,
-        lon = null;
+        lon = null,
         focalLength = null;
 
     if (exifdata.GPSLatitude && exifdata.GPSLatitude.length > 0) {
@@ -163,8 +157,19 @@ function getLatLonData(exifdata){
     }
     if (exifdata.GPSLongitudeRef && exifdata.GPSLongitudeRef.length > 0) {
         lon = getGPSFormatedData(exifdata.GPSLongitude, exifdata.GPSLongitudeRef);
+        console.log(lat,lon);
     }
     return [lat, lon];
+}
+
+function filteredSearchByTagClicked() {
+    $(".link").click(function () {
+        tagClicked = '#'+ $(this).html();
+        $("#inputValue").val(tagClicked);
+        imgIndex = 0;
+        goToItem(tagClicked, imgIndex,limit);
+        modal.css('display', 'none');
+    });
 }
 
 // Pagination ---->>>>>>
@@ -174,8 +179,8 @@ let arrayPhotos = [];
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let searchByTag,regexTag,regexTitle,tmpFiltered;
     searchByTag = filter[0] === "#";
-    regexTag = new RegExp( filter.replace(/#/g, '').replace(/,/, '|') );
-    regexTitle = new RegExp(filter.replace(/,/g, '|'));
+    regexTag = new RegExp(('\\b' + filter + '\\b').replace(/#/g, '').replace(/ /g, '').replace(/,/, '|') );
+    regexTitle = new RegExp(filter.replace(/ /g, '').replace(/,/g, '|'));
     let filteredArrayPhotos=[];
 
     if (numberOfImages < 1 ) {
@@ -183,21 +188,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     }
     tmpFiltered = arrayPhotos.filter(function searchFilter (image){
         return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
-        // if(filter[0] === "#") {
-        //     searchByTag = true;
-        //     if(filter === ',' ){
-        //
-        //     }
-        // }
-        // if(filter !== '') {
-        //     for(let i = 0 ; i < filter.length; i ++){
-        //         if ( image.title === filter){
-        //
-        //         }
-        //     }
-        //    return  "variable to take all tags/titles
-        // }
-
      });
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
@@ -207,7 +197,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
         }
     }
     return filteredArrayPhotos;
-
 }
 
 function getImagesCount() {
@@ -238,6 +227,5 @@ function goToItem(filter,imgIndex,count) {
     RenderPagingView(imgCount);
     renderImages(imagesToDisplay);
 }
-
 
 ///// END OF PAGINATION <<----
