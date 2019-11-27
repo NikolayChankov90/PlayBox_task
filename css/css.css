@@ -1,7 +1,7 @@
 #imageContainer {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 5%;
+  margin-left: 4%;
 }
 
 #imageContainer img {
@@ -19,7 +19,6 @@
   font-size: 30px;
   text-align: center;
   font-family: "Bauhaus 93", sans-serif;
-
 }
 
 .imgBox {
@@ -66,10 +65,9 @@
   margin-left: 42.5%;
 }
 
-
 #map {
   width: 35%;
-  height: 26.5%;
+  height: 28.2%;
   margin-left: 15%;
   flex-flow: column;
   display: block;
@@ -185,5 +183,4 @@
   position: absolute;
   margin-left: 80%;
   margin-top:0.3%;
-
 }
