@@ -16,17 +16,21 @@
 
 #imageContainer p {
   color: black;
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
-  font-family: "Arial Black";
+  font-family: "Bauhaus 93", sans-serif;
+
 }
 
 .imgBox {
   float: left;
   width: 31.33%;
   border-style: groove;
+  border-radius: 12px;
   border-color: dimgrey;
   overflow:hidden;
+  margin-top: 6px;
+  margin-right:10px;
 }
 
 #myModal {
@@ -174,4 +178,12 @@
 .link:hover{
   color: red;
   cursor:pointer;
+}
+
+#items{
+  size: 60px;
+  position: absolute;
+  margin-left: 80%;
+  margin-top:0.3%;
+
 }

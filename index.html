@@ -10,17 +10,17 @@
     <title>Gallery</title>
 </head>
 <body>
+<form id="items">Show items per page:
+    <select id="selectItemsPerPage">
+        <option value="12">12 items per page</option>
+        <option value="16">16 items per page</option>
+        <option value="24">24 items per page</option>
+        <option value="36">36 items per page</option>
+    </select>
+</form>
 <div class="searchButton">
     <input type="text" id="inputValue"  data-toggle="tooltip"  placeholder="Search by name or #tag">
     <button id="searchBtn" onclick="goToPage(0,limit)" type="button">Search</button>
-    <form>Show items per page:
-        <select id="selectItemsPerPage">
-            <option value="12">12 items per page</option>
-            <option value="16">16 items per page</option>
-            <option value="24">24 items per page</option>
-            <option value="36">36 items per page</option>
-        </select>
-    </form>
 </div>
 <div id="loading"></div>
 <div id="imageContainer"></div>

@@ -172,7 +172,7 @@ function changeItemsPerPage () {
 
 function filteredSearchByTagClicked() {
     $(".link").click(function () {
-        tagClicked = '#'+ $(this).html();
+        let tagClicked = '#'+ $(this).html();
         $("#inputValue").val(tagClicked);
         goToItem(tagClicked, 0,limit);
         modal.css('display', 'none');
