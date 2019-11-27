@@ -187,7 +187,7 @@ function filteredSearchByTagClicked() {
 // Pagination ---->>>>>>
 let limit = 12;
 let arrayPhotos = [];
-
+let filtered ;
 function getImageArray(filter, imgIndexStart, numberOfImages) {
     let searchByTag,regexTag,regexTitle,tmpFiltered;
     searchByTag = filter[0] === "#";
@@ -198,9 +198,11 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     if (numberOfImages < 1 ) {
         numberOfImages = arrayPhotos.length;
     }
+
     tmpFiltered = arrayPhotos.filter(function searchFilter (image){
         return searchByTag ? regexTag.test(image.tag) : regexTitle.test(image.title.toLowerCase());
      });
+    filtered = tmpFiltered;
 
     for (let i = imgIndexStart; i < tmpFiltered.length; i++) {
        filteredArrayPhotos.push(tmpFiltered[i]);
@@ -213,8 +215,7 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
 
 function getImagesCount() {
     let filter = $("#inputValue").val().toLowerCase();
-    const imgs = getImageArray(filter,0,-1);
-    return imgs.length;
+    return filtered.length;
 }
 
 function RenderPagingView(itemsCount) {
