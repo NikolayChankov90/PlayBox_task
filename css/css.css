@@ -118,7 +118,8 @@
 
 #pagination {
   size: 50px;
-  margin-left: 42%;
+  position: absolute;
+  left: 40%;
 }
 
 .clickPageNumber {

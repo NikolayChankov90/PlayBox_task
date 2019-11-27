@@ -16,7 +16,7 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 // Modal Dialog ------>>>>>>
-let imgTag,link;
+
 function addPhotosClickListener() {
     let images = $(".imgBox img");
     if(images) {
@@ -113,6 +113,7 @@ function renderImages(data) {
             }
         });
     });
+    changeItemsPerPage();
     addPhotosClickListener();
     loadingMsg();
 }
@@ -162,12 +163,18 @@ function getLatLonData(exifdata){
     return [lat, lon];
 }
 
+function changeItemsPerPage () {
+    $("#selectItemsPerPage").change(function(){
+        limit = (this.value);
+        goToPage(0,limit);
+    })
+}
+
 function filteredSearchByTagClicked() {
     $(".link").click(function () {
         tagClicked = '#'+ $(this).html();
         $("#inputValue").val(tagClicked);
-        imgIndex = 0;
-        goToItem(tagClicked, imgIndex,limit);
+        goToItem(tagClicked, 0,limit);
         modal.css('display', 'none');
     });
 }
@@ -227,5 +234,4 @@ function goToItem(filter,imgIndex,count) {
     RenderPagingView(imgCount);
     renderImages(imagesToDisplay);
 }
-
 ///// END OF PAGINATION <<----
