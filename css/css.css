@@ -67,7 +67,7 @@
 
 #map {
   width: 35%;
-  height: 28.2%;
+  height: 27%;
   margin-left: 15%;
   flex-flow: column;
   display: block;
@@ -166,6 +166,9 @@
  }
   #exifResult{
     height: 58.5%;
+  }
+  #map{
+    height: 28.2%;
   }
 }
 
