@@ -12,6 +12,6 @@ addPhotosClickListener();
 closeDlg.click(function() {
     modal.css('display',"none");
     googleMap.css('display', 'block');
-    modalContent.removeClass("modal-rotated90 modal-rotated270 rotate90 rotate180 rotate270 specific90");
+    modalContent.removeClass("modal-rotated90 rotate90 rotate180 rotate270");
     modalContent.removeAttr("src");
 });

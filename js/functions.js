@@ -118,7 +118,7 @@ function renderImages(data) {
             }
         });
     });
-    changeItemsPerPage();
+    changeItemsPerPage ();
     addPhotosClickListener();
     loadingMsg();
 }
@@ -169,7 +169,8 @@ function getLatLonData(exifdata){
 }
 
 function changeItemsPerPage () {
-    $("#selectItemsPerPage").change(function(){
+    let itemsPerPage = $("#selectItemsPerPage");
+    itemsPerPage.change(function(){
         limit = (this.value);
         goToPage(0,limit);
     })
@@ -181,6 +182,7 @@ function filteredSearchByTagClicked() {
         $("#inputValue").val(tagClicked);
         goToItem(tagClicked, 0,limit);
         modal.css('display', 'none');
+        modalContent.removeClass("modal-rotated90 rotate90 rotate180 rotate270");
     });
 }
 

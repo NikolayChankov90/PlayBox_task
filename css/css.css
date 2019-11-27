@@ -120,8 +120,9 @@
 
 #pagination {
   size: 50px;
-  position: absolute;
+  position: inherit;
   left: 40%;
+  margin-top: 2%;
 }
 
 .clickPageNumber {
