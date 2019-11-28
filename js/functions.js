@@ -16,7 +16,6 @@ function loadingMsg(doShow, message){
     loading.hide();
 }
 // Modal Dialog ------>>>>>>
-
 function addPhotosClickListener() {
     let images = $(".imgBox img");
     if(images) {
@@ -83,7 +82,6 @@ function addPhotosClickListener() {
                 });
             }
         });
-
     }
 }
 
