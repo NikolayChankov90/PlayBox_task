@@ -5,7 +5,9 @@ const modal = $('#myModal'),
     modalContent = $('.modal-content'),
     loading = $('#loading');
 
-let imageContainer = $('#imageContainer');
+let imageContainer = $('#imageContainer'),
+    itemsPerPage = $("#selectItemsPerPage");
+
 getPhotos();
 addPhotosClickListener();
 

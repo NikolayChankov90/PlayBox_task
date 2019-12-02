@@ -1,11 +1,16 @@
 body{
-  background-color: lightgrey;
+  background-image: url(../img/corporate-grey-low.png);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #imageContainer {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 4%;
+  margin-left: 5%;
+  float:left;
 }
 
 #imageContainer img {
@@ -26,16 +31,15 @@ body{
 }
 
 .imgBox {
-  float: left;
-  width: 31.33%;
+  width: 30%;
   border-style: groove;
-  border-radius: 12px;
   border-color: dimgrey;
   overflow:hidden;
   margin-top: 6px;
-  margin-right:10px;
   background-color: white;
   box-shadow: lightgrey;
+  margin-right:2%;
+  margin-bottom: 1.5%;
 }
 
 #myModal {
@@ -159,8 +163,8 @@ body{
 
 .modal-rotated90{
   height:64%;
-  width: 109%;
-  margin-left: 25%;
+  width: 106%;
+  margin-left: 28.5%;
   margin-top: 18.7%;
 }
 
@@ -194,6 +198,80 @@ body{
   margin-left: 80%;
   margin-top:0.3%;
 }
+
+.imgBox:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  transition: all 0.35s;
+}
+.imgBox:nth-of-type(4n+1) {
+  transform: scale(0.8, 0.8) rotate(5deg);
+  transition: all 0.35s;
+}
+.imgBox:nth-of-type(4n+1) .polaroid:before {
+  transform: rotate(6deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  right: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.4);
+}
+.imgBox:nth-of-type(4n+2) {
+  transform: scale(0.8, 0.8) rotate(-5deg);
+  transition: all 0.35s;
+}
+.imgBox:nth-of-type(4n+2) .polaroid:before {
+  transform: rotate(-6deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  left: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.4);
+}
+.imgBox:nth-of-type(4n+4) {
+  transform: scale(0.8, 0.8) rotate(3deg);
+  transition: all 0.35s;
+}
+.imgBox:nth-of-type(4n+4) .polaroid:before {
+  transform: rotate(4deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  right: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.3);
+}
+.imgBox:nth-of-type(4n+3) {
+  transform: scale(0.8, 0.8) rotate(-3deg);
+  transition: all 0.35s;
+}
+.imgBox:nth-of-type(4n+3) .polaroid:before {
+  transform: rotate(-4deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  left: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.3);
+}
+.imgBox:hover {
+  filter: none;
+  transform: scale(1, 1) rotate(0deg) !important;
+  transition: all 0.35s;
+}
+.imgBox:hover .polaroid:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  transform: rotate(0deg);
+  height: 90%;
+  width: 90%;
+  bottom: 0%;
+  right: 5%;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
+  transition: all 0.35s;
+}
+
+
 @media only screen and (max-width: 600px){
   #imageContainer {
     margin-left: 12%;
@@ -221,7 +299,7 @@ body{
   }
 }
 
-@media only screen and (min-width: 600px) and (max-width: 900px) {
+@media only screen and (min-width: 600px) and (max-width: 1000px) {
   #imageContainer {
   margin-left: 12%;
   }
@@ -248,14 +326,14 @@ body{
   }
 }
 
-@media only screen and (min-width: 900px) and (max-width: 1400px) {
+@media only screen and (min-width: 1000px) and (max-width: 1600px) {
   #imageContainer {
-    margin-left: 1%;
+    margin-left: 5%;
   }
 
   #imageContainer img {
-    width: 75%;
-    margin-left: 13%;
+    width: 80%;
+    margin-left: 10%;
   }
 
   #imageContainer p {
@@ -263,7 +341,8 @@ body{
   }
 
   .imgBox {
-    width: 48%;
+    width: 40%;
+    margin-left :5%
   }
 
   #items {

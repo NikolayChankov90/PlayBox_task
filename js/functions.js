@@ -167,7 +167,6 @@ function getLatLonData(exifdata){
 }
 
 function changeItemsPerPage () {
-    let itemsPerPage = $("#selectItemsPerPage");
     itemsPerPage.change(function(){
         limit = (this.value);
         goToPage(0,limit);
