@@ -212,11 +212,6 @@ function getImageArray(filter, imgIndexStart, numberOfImages) {
     return filteredArrayPhotos;
 }
 
-function getImagesCount() {
-    let filter = $("#inputValue").val().toLowerCase();
-    return filtered.length;
-}
-
 function RenderPagingView(itemsCount) {
     let totalPages = Math.ceil(itemsCount / limit);
     let paginationContainer = $("#pagination");
@@ -235,7 +230,7 @@ function goToPage(pageNum, count) {
 
 function goToItem(filter,imgIndex,count) {
     let imagesToDisplay = getImageArray(filter, imgIndex, count);
-    const imgCount = getImagesCount();
+    const imgCount = filtered.length;
     RenderPagingView(imgCount);
     renderImages(imagesToDisplay);
 }
