@@ -18,11 +18,10 @@ function loadingMsg(doShow, message){
 // Modal Dialog ------>>>>>>
 function addPhotosClickListener() {
     let images = $(".imgBox img");
-    if(images) {
         images.click(function () {
             modal.css('display', 'none');
             googleMap.css('display', 'none');
-            if($(this).attr('src') !== "" ) {
+            if($(this).attr('src') !== "" && $(this).attr('src')!== "Photos/loading_indicator.gif" ) {
                 modalContent.attr('src', $(this).attr('src'));
                 let orientation, latLonData;
                 EXIF.getData(this, function () {
@@ -82,21 +81,20 @@ function addPhotosClickListener() {
                 });
             }
         });
-    }
 }
 
 function renderImages(data) {
     loadingMsg(true);
     let images ='';
     data.forEach(function (item) {
+        if(item.location !== "") {
             images += (`<div class='imgBox'><img id=${item.id} alt=" "  src=Photos/loading_indicator.gif /><p>${item.title}</p></div>`);
+        }
     });
     imageContainer.html(images);
     data.forEach(function (item) {
         let imgOrientation;
-        if(item.location !== "") {
             item.src = item.location;
-        }
         EXIF.getData(item, function () {
             imgOrientation = EXIF.getTag(item, "Orientation");
             let image = $(`#${item.id}`);
